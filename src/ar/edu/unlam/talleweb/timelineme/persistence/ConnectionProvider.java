@@ -9,12 +9,15 @@ public class ConnectionProvider {
 	private static ConnectionProvider instance;
 	private static Connection connection = null;
 
-	//private String url = "jdbc:sqlite:aaarrgh.db";
-	private String url = "jdbc:sqlite:/home/fer/workspace/timelineme/timelineme.db";
+	private String URL = "jdbc:mysql://localhost:3306/timelineme";
+	private String USER="root";
+	private String PASSWORD="";
+	private String DRIVER_CLASS="com.mysql.jdbc.Driver";
 	private ConnectionProvider() throws PersistenceException {
+		
+		
 		try {
-			Class.forName("org.sqlite.JDBC");
-			connection = DriverManager.getConnection(this.url);
+			Class.forName(this.DRIVER_CLASS);
 		} catch (Exception classNotFoundException) {
 			throw new PersistenceException(classNotFoundException);
 		}
@@ -30,10 +33,8 @@ public class ConnectionProvider {
 	public Connection getConnection() throws PersistenceException {
 
 		try {
-			this.closeConnection();
-			// siempre debe ser una nueva conexión, por cuestiones de SQLite
-
-			connection = DriverManager.getConnection(this.url);
+			//this.closeConnection();
+			connection = DriverManager.getConnection(this.URL, this.USER, this.PASSWORD);
 			connection.setAutoCommit(false);
 		} catch (Exception exception) {
 			throw new PersistenceException(exception);
