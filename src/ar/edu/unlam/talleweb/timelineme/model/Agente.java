@@ -1,21 +1,20 @@
 package ar.edu.unlam.talleweb.timelineme.model;
 
-public class Persona {
+public class Agente {
 
 	private Integer id;
 	private String nombre;
-	private String apellido;
-	private Integer edad;
 	public String username;
 	public String password;
+	private Integer idempresa;
 	
-
-	public Persona() {
+	
+	public Agente() {
 		super();
 	}
 
 	public String getFullName() {
-		return this.nombre + " " + this.apellido;
+		return this.nombre;
 	}
 	
 	public Integer getId() {
@@ -30,18 +29,8 @@ public class Persona {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-	public String getApellido() {
-		return this.apellido;
-	}
-	public void setApellido(String apellido) {
-		this.apellido = apellido;
-	}
-	public Integer getEdad() {
-		return this.edad;
-	}
-	public void setEdad(Integer edad) {
-		this.edad = edad;
-	}
+	
+	
 
 	public String getUsername() {
 		return this.username;
@@ -58,5 +47,11 @@ public class Persona {
 	public void setPassword(String string) {
 		this.password = string;
 	}
-
+	
+	public Integer getIdempresa() {
+		return this.idempresa;
+	}
+	public void setIdempresa(Integer idempresa) {
+		this.idempresa = idempresa;
+	}
 }

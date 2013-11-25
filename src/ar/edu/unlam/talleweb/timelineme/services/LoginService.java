@@ -1,13 +1,13 @@
 package ar.edu.unlam.talleweb.timelineme.services;
 
-import ar.edu.unlam.talleweb.timelineme.model.Persona;
+import ar.edu.unlam.talleweb.timelineme.model.Agente;
 import ar.edu.unlam.talleweb.timelineme.persistence.PersistenceException;
 
 public class LoginService {
 
 	public Boolean authenticate(String username, String password) throws PersistenceException {
 		Boolean retorno = false;
-		Persona usuarioActual = findByName(username);
+		Agente usuarioActual = findByName(username);
 		if (usuarioActual == null) {
 			retorno = false;
 		} else {
@@ -16,9 +16,9 @@ public class LoginService {
 		return retorno;
 	}
 	
-	public Persona findByName(String username) throws PersistenceException{
-		PersonaService personaSvc = new PersonaService();
-		return personaSvc.findByName(username);
+	public Agente findByName(String username) throws PersistenceException{
+		AgenteService agenteSvc = new AgenteService();
+		return agenteSvc.findByName(username);
 		
 	}
 	

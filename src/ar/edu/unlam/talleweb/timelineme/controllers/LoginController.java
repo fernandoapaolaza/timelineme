@@ -24,11 +24,11 @@ public class LoginController {
 		ModelAndView dispatch = null;
 		session.setAttribute("username", username);
 		if (loginService.authenticate(username, password)) {
-			// Se agrega "username a la sesión"
+			// Se agrega "username a la sesiï¿½n"
 			session.setAttribute("username", username);
 			dispatch = new ModelAndView("welcome", "message", "Bienvenido, @" + username); 
 		} else {
-			dispatch = new ModelAndView("error", "message", "Ingreso incorrecto");
+			dispatch = new ModelAndView("error", "message", "Ingreso incorrecto" + username + password);
 		}
 		return dispatch;
 	}

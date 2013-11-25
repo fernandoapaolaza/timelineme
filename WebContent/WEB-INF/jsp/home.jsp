@@ -11,7 +11,7 @@
 		<p>${sValue}</p>
 	<h2>Id de Sesión del Usuario: </h2>
 		<p>${sid}</p>
-	<h2>Variable de Sesión name: </h2>
+<h2>Variable de Sesión name: </h2>
 			<p>${name}</p>
 	<h2>Datos de la Persona: </h2>
 			<p>${miUsuario.apellido}</p>
@@ -22,6 +22,7 @@
   			<li>${unUsuario.apellido}, ${unUsuario.nombre}</li>
   			<br/>  				
   		</c:forEach>
-		<a href="${pageContext.request.contextPath}/">Login page</a>			
+		<a href="${pageContext.request.contextPath}/">Login page</a>
+				
 </body>
 </html>

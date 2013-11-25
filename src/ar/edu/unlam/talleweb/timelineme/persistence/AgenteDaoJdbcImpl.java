@@ -7,33 +7,33 @@ import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 
-import ar.edu.unlam.talleweb.timelineme.model.Persona;
+import ar.edu.unlam.talleweb.timelineme.model.Agente;
 
-public class PersonaDaoJdbcImpl implements PersonaDao {
+public class AgenteDaoJdbcImpl implements AgenteDao{
+	
+	private static AgenteDao instance = new AgenteDaoJdbcImpl();
 
-	private static PersonaDao instance = new PersonaDaoJdbcImpl();
-
-	public static PersonaDao getInstance() {
+	public static AgenteDao getInstance() {
 		return instance;
 	}
 
 	@Override
-	public void insert(Persona persona) throws PersistenceException {
+	public void insert(Agente agente) throws PersistenceException {
 
 		Transaction tx = TransactionJdbcImpl.getInstance();
 		Connection conn = tx.getConnection();
 
 		try {
 			tx.begin();
-			String query = "insert into persona (id, nombre, apellido, edad, username, password) values (?, ?, ?, ?, ?, ?)";
+			String query = "insert into agente (iId, cNombre, cEmail, cPassword, fkEmpresa, iActivo, iAdmin) values (?, ?, ?, ?, ?, 1, 0)";
 			PreparedStatement statement = TransactionJdbcImpl.getInstance()
 					.getConnection().prepareStatement(query);
-			statement.setInt(1, persona.getId());
-			statement.setString(2, persona.getNombre());
-			statement.setString(3, persona.getApellido());
-			statement.setInt(4, persona.getEdad());
-			statement.setString(5, persona.getUsername());
-			statement.setString(6, persona.getPassword());
+			statement.setInt(1, agente.getId());
+			statement.setString(2, agente.getNombre());
+			statement.setString(3, agente.getUsername());
+			statement.setString(4, agente.getPassword());
+			statement.setInt(5, agente.getIdempresa());
+			
 
 			statement.executeUpdate();
 
@@ -51,16 +51,16 @@ public class PersonaDaoJdbcImpl implements PersonaDao {
 	}
 
 	@Override
-	public void delete(Persona persona) throws PersistenceException {
+	public void delete(Agente agente) throws PersistenceException {
 		Transaction tx = TransactionJdbcImpl.getInstance();
 		Connection conn = tx.getConnection();
 
 		try {
 			tx.begin();
 
-			String query = "delete from persona where id = ?";
+			String query = "delete from agente where iId = ?";
 			PreparedStatement statement = conn.prepareStatement(query);
-			statement.setInt(1, persona.getId());
+			statement.setInt(1, agente.getId());
 			statement.executeUpdate();
 
 			tx.commit();
@@ -77,28 +77,24 @@ public class PersonaDaoJdbcImpl implements PersonaDao {
 	}
 
 	@Override
-	public void update(Persona persona) throws PersistenceException {
+	public void update(Agente agente) throws PersistenceException {
 		try {
-			String query = "update persona set nombre = ?, apellido = ?, edad = ?,username = ?, password = ?  where id = ?";
+			String query = "update agente set cNombre = ?  where iId = ?";
 
 			PreparedStatement statement = TransactionJdbcImpl.getInstance()
 					.getConnection().prepareStatement(query);
-			statement.setString(1, persona.getNombre());
-			statement.setString(2, persona.getApellido());
-			statement.setInt(3, persona.getEdad());
-			statement.setString(4, persona.getUsername());
-			statement.setString(5, persona.getPassword());
-			statement.setInt(6, persona.getId());
+			statement.setString(1, agente.getNombre());
+			
 			statement.executeUpdate();
 		} catch (SQLException sqlException) {
 			throw new PersistenceException(sqlException);
 		}
 	}
 
-	public List<Persona> findAll() throws PersistenceException {
-		List<Persona> lista = new LinkedList<Persona>();
+	public List<Agente> findAll() throws PersistenceException {
+		List<Agente> lista = new LinkedList<Agente>();
 		try {
-			String query = "select * from persona";
+			String query = "select * from agente";
 			PreparedStatement statement = ConnectionProvider.getInstance()
 					.getConnection().prepareStatement(query);
 			ResultSet resultSet = statement.executeQuery();
@@ -112,59 +108,58 @@ public class PersonaDaoJdbcImpl implements PersonaDao {
 	}
 
 	@Override
-	public Persona findById(Integer idPersona) throws PersistenceException {
-		if (idPersona == null) {
+	public Agente findById(Integer idAgente) throws PersistenceException {
+		if (idAgente == null) {
 			throw new IllegalArgumentException(
-					"El id de persona no debe ser nulo");
+					"El id del agente no debe ser nulo");
 		}
-		Persona persona = null;
+		Agente agente = null;
 		try {
 			Connection c = ConnectionProvider.getInstance().getConnection();
-			String query = "select * from persona where id = ?";
+			String query = "select * from agente where iId = ?";
 			PreparedStatement statement = c.prepareStatement(query);
-			statement.setInt(1, idPersona);
+			statement.setInt(1, idAgente);
 			ResultSet resultSet = statement.executeQuery();
 			if (resultSet.next()) {
-				persona = convertOne(resultSet);
+				agente = convertOne(resultSet);
 			}
 		} catch (SQLException sqlException) {
 			throw new PersistenceException(sqlException);
 		}
-		return persona;
+		return agente;
 	}
 
-	private Persona convertOne(ResultSet resultSet) throws SQLException {
-		Persona retorno = new Persona();
+	private Agente convertOne(ResultSet resultSet) throws SQLException {
+		Agente retorno = new Agente();
 
-		retorno.setId(resultSet.getInt("id"));
-		retorno.setNombre(resultSet.getString("nombre"));
-		retorno.setApellido(resultSet.getString("apellido"));
-		retorno.setEdad(resultSet.getInt("edad"));
-		retorno.setUsername(resultSet.getString("username"));
-		retorno.setPassword(resultSet.getString("password"));
+		retorno.setId(resultSet.getInt("iId"));
+		retorno.setNombre(resultSet.getString("cNombre"));
+		retorno.setUsername(resultSet.getString("cEmail"));
+		retorno.setPassword(resultSet.getString("cPassword"));
+		retorno.setIdempresa(resultSet.getInt("fkEmpresa"));
 
 		return retorno;
 	}
 
-	public Persona findByName(String username) throws PersistenceException {
+	public Agente findByName(String username) throws PersistenceException {
 		if (username == null) {
 			throw new IllegalArgumentException(
 					"El nombre de usuario no debe ser nulo");
 		}		
-		Persona persona = null;
+		Agente agente = null;
 		try {
 			Connection c = ConnectionProvider.getInstance().getConnection();
-			String query = "select * from persona where username = ?";
+			String query = "select * from agente where cEmail = ?";
 			PreparedStatement statement = c.prepareStatement(query);
 			statement.setString(1, username);
 			ResultSet resultSet = statement.executeQuery();
 			if (resultSet.next()) {
-				persona = convertOne(resultSet);
+				agente = convertOne(resultSet);
 			}
 		} catch (SQLException sqlException) {
 			throw new PersistenceException(sqlException);
 		}
-		return persona;
+		return agente;
 	}
 
 }

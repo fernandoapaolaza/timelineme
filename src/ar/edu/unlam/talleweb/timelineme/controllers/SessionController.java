@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
-import ar.edu.unlam.talleweb.timelineme.model.Persona;
+import ar.edu.unlam.talleweb.timelineme.model.Agente;
 import ar.edu.unlam.talleweb.timelineme.persistence.PersistenceException;
-import ar.edu.unlam.talleweb.timelineme.services.PersonaService;
+import ar.edu.unlam.talleweb.timelineme.services.AgenteService;
 
 
 @Controller
@@ -19,34 +19,33 @@ import ar.edu.unlam.talleweb.timelineme.services.PersonaService;
 @RequestMapping("/perfil")
 public class SessionController {
 
-//	LoginService loginService = new LoginService();
-	PersonaService personaService = new PersonaService();
+	AgenteService agenteService = new AgenteService();
 
 	@RequestMapping("/inicio")
 	
-		// Pasamos como argumento HttpSession al método que maneja el requerimiento
+		// Pasamos como argumento HttpSession al mï¿½todo que maneja el requerimiento
 
 	public ModelAndView mainPage(HttpSession session) throws PersistenceException {
 		ModelAndView mav = new ModelAndView("home"); 
 		
-		// Se recupera el atributo de la sesión
+		// Se recupera el atributo de la sesiï¿½n
 		String name = (String) session.getAttribute("username");
 		
 		// Se obtiene el usuario/persona logueado/a
-		Persona miUsuario = personaService.findByName(name);
+		Agente miUsuario = agenteService.findByName(name);
 		
 		// Se obtiene una lista de todos los usuarios/personas
-		List<Persona> misUsuarios = personaService.findAll();
+		List<Agente> misUsuarios = agenteService.findAll();
 		
-		// Se obtiene el Id único de sesión
+		// Se obtiene el Id ï¿½nico de sesiï¿½n
 		String sid = session.getId();
 		
-		// Colocamos algunos valores en la sesión del controlador		
+		// Colocamos algunos valores en la sesiï¿½n del controlador		
         mav.addObject("sid", sid);  
         mav.addObject("name", name); 
         mav.addObject("miUsuario", miUsuario); 
         mav.addObject("misUsuarios", misUsuarios);
-        String sValue = "Algún valor como String";  
+        String sValue = "Algï¿½n valor como String";  
 	    mav.addObject("sValue", sValue);  
 	    return mav;
 	}
