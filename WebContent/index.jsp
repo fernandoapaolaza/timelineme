@@ -21,6 +21,7 @@
 				
 			</div>
 		</div>
+		<br />
 		<div class="control-group">
 			<label class="control-label" for="inputPassword">Contraseña</label>
 			<div class="controls">
@@ -28,6 +29,8 @@
 			
 			</div>
 		</div>
+		<br />
+		<br />
 		<div class="control-group">
 			<div class="controls">
 				<button type="submit" class="btn">Ingresar</button>

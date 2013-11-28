@@ -14,12 +14,12 @@
 <h2>Variable de Sesión name: </h2>
 			<p>${name}</p>
 	<h2>Datos de la Persona: </h2>
-			<p>${miUsuario.apellido}</p>
+			
 			<p>${miUsuario.nombre}</p>
-			<p>${miUsuario.edad}</p>			
+					
 	<h2>Listado de las Personas en la Base de Datos: </h2>
 		<c:forEach items="${misUsuarios}" var="unUsuario">
-  			<li>${unUsuario.apellido}, ${unUsuario.nombre}</li>
+  			<li> ${unUsuario.nombre}</li>
   			<br/>  				
   		</c:forEach>
 		<a href="${pageContext.request.contextPath}/">Login page</a>

@@ -2,11 +2,11 @@ package ar.edu.unlam.talleweb.timelineme.model;
 
 public class Agente {
 
-	private Integer id;
-	private String nombre;
+	public Integer id;
+	public String nombre;
 	public String username;
 	public String password;
-	private Integer idempresa;
+	public Integer idempresa;
 	
 	
 	public Agente() {

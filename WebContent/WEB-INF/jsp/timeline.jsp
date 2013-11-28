@@ -72,21 +72,17 @@
 </head>
 <body>
 	<div class="contenedorPrincipal">
-		<h2 class="left both cien">Bienvenido ${nombre}</h2>
 		
-		<a href="http://localhost:8080/timelineme/empresas/timeline.do">
-			Time Line - Empresas que sigo.
+		<a href="http://localhost:8080/timelineme/empresas/welcome.do">
+			Time Line Me - 
 		</a>
-		<br>
+		<br />
 		<a href="http://localhost:8080/timelineme/empresas/timelinegeneral.do">
 			Time Line - General.
 		</a>
 		
-		<div class="empresasALasQueSigo left both">
-			${empresasquesigo}
-		</div>
-		
-		<h3 class="left both cien">Este es el Timeline de tu Empresa ${empresa}</h3>
+			
+		<h3 class="left both cien">Este es el Timeline de las Empresas que sigues.</h3>
 		<br />
 		<br />
 		<div class="comentarios left both  cien">
@@ -94,33 +90,9 @@
 		</div>
 		<br />
 		
-		<h4 class="left both  cien">Escribe un comentario</h4>
-		<br />
 		
-		<p class="left both  cien">
-			<i>
-				<span class="rojo">
-					<b>${nombre}</b>
-				</span> dice:
-			</i>
-		</p>
 		
-		<form action="http://localhost:8080/timelineme/comments/comment.do" class="form-horizontal" method='POST'>
-			<div class="control-group  left both  cien">
-				<label class="control-label  cien left both" for="inputComentario">Comentario</label>
-				<div class="controls  left both  cien">
-					<input type="hidden" name="username" id="username" value="${nombre}">
-					
-					<textarea type="text" class=" left both" name="comments" id="comments" placeholder="Escriba su comentario"></textarea>
-					
-				</div>
-			</div>
-			<div class="control-group  left both">
-				<div class="controls  left both">
-					<button type="submit" class="btn  left both">Ingresar</button>
-				</div>
-			</div>
-		</form>
+		
 	</div>
 	<!-- 
 	<a href="../perfil/inicio.do">Probar la sesión</a>
