@@ -14,13 +14,16 @@ import org.springframework.web.servlet.ModelAndView;
 
 import ar.edu.unlam.talleweb.timelineme.model.Agente;
 import ar.edu.unlam.talleweb.timelineme.model.Empresa;
+import ar.edu.unlam.talleweb.timelineme.model.Seguir;
 import ar.edu.unlam.talleweb.timelineme.persistence.AgenteDaoJdbcImpl;
 import ar.edu.unlam.talleweb.timelineme.model.Publicacion;
 import ar.edu.unlam.talleweb.timelineme.persistence.ConnectionProvider;
 import ar.edu.unlam.talleweb.timelineme.persistence.PublicacionDaoJdbcImpl;
 import ar.edu.unlam.talleweb.timelineme.persistence.PersistenceException;
+import ar.edu.unlam.talleweb.timelineme.persistence.SeguirDaoJdbcImpl;
 import ar.edu.unlam.talleweb.timelineme.services.LoginService;
 import ar.edu.unlam.talleweb.timelineme.persistence.EmpresaDaoJdbcImpl;
+
 
 
 import java.util.Iterator; //Importo la interfaz Iterator para iterar el arrayList
@@ -80,6 +83,33 @@ public class LoginController {
 			EmpresaDaoJdbcImpl empresa = new EmpresaDaoJdbcImpl();
 			Empresa ObjEmpresa = empresa.findById(AtributosAgente.idempresa);
 			
+			//Empresas que sigo
+			SeguirDaoJdbcImpl sigue = new SeguirDaoJdbcImpl();
+			List<Seguir> resultadosseguidas = sigue.findFollow(AtributosAgente.id);
+			
+			Iterator<Seguir> resultsseguidas = resultadosseguidas.iterator();
+			
+			
+			
+			String Seguidas="";
+			
+			while ( resultsseguidas.hasNext() ) {
+				Seguir row = resultsseguidas.next();
+				
+				Seguir objSeguir = sigue.findById(row.getId());
+				
+				
+				EmpresaDaoJdbcImpl empresasQueSigo = new EmpresaDaoJdbcImpl();
+				//Armo objeto empresa.
+				Empresa objEmpresa  = empresasQueSigo.findById(objSeguir.idempresaseguida);
+				Seguidas = Seguidas+objEmpresa.nombre+"<br />";
+				
+				
+				
+				
+			}
+			
+			dispatch.addObject("empresasquesigo", Seguidas);
 			dispatch.addObject("empresa", ObjEmpresa.nombre);
 		} else {
 			dispatch = new ModelAndView("error", "message", "Ingreso incorrecto");

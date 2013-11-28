@@ -74,15 +74,15 @@
 	<div class="contenedorPrincipal">
 		
 		<a href="http://localhost:8080/timelineme/empresas/timelineme.do">
-			Time Line - Me.
+			Time Line Me - 
 		</a>
 		<br />
-		<a href="http://localhost:8080/timelineme/empresas/timelinegeneral.do">
-			Time Line - General.
+		<a href="http://localhost:8080/timelineme/empresas/timeline.do">
+			Time Line - Empresas que sigo
 		</a>
 		
 			
-		<h3 class="left both cien">Este es el Timeline de tu empresa.</h3>
+		<h3 class="left both cien">Este es el Timeline de las Empresas.</h3>
 		<br />
 		<br />
 		<div class="comentarios left both  cien">

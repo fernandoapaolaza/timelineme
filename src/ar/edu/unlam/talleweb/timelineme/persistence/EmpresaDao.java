@@ -12,7 +12,6 @@ public interface EmpresaDao {
     
     public Empresa findById(Integer idEmpresa) throws PersistenceException;
     
-    public List<Empresa> findFollow(Integer idEmpresa) throws PersistenceException;
-
+    
 	
 }

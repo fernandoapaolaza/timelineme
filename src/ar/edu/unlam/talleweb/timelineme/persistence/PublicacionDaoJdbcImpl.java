@@ -6,8 +6,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Iterator; //Importo la interfaz Iterator para iterar el arrayList
+import java.util.ArrayList; //Importo la clase ArrayList para poder usar la lista
 
 import ar.edu.unlam.talleweb.timelineme.model.Publicacion;
+import ar.edu.unlam.talleweb.timelineme.model.Seguir;
 
 public class PublicacionDaoJdbcImpl implements PublicacionDao{
 	
@@ -132,6 +135,82 @@ public class PublicacionDaoJdbcImpl implements PublicacionDao{
 		}
 		return lista;
 	}
-
 	
+	
+	public List<Publicacion> findAllComments(Integer idAgente) throws PersistenceException {
+		List<Publicacion> lista = new LinkedList<Publicacion>();
+		try {
+			
+			//Traigo todos las empresas que sigo.
+			SeguirDaoJdbcImpl sigue = new SeguirDaoJdbcImpl();
+			List<Seguir> resultados = sigue.findFollow(idAgente);
+			
+			Iterator<Seguir> results = resultados.iterator();
+			
+			
+			String query = "select * from publicacion where";
+			Boolean primeravez = true;
+			
+			while ( results.hasNext() ) {
+				
+				Seguir row = results.next();
+				
+				Seguir objSeguir = sigue.findById(row.getId());
+				EmpresaDaoJdbcImpl empresasQueSigo = new EmpresaDaoJdbcImpl();
+				
+				if(primeravez){
+					query =  query + " fkEmpresa = "+objSeguir.idempresaseguida+" ";
+					primeravez = false;
+				}else{
+					query =  query + " AND fkEmpresa = "+objSeguir.idempresaseguida+" ";
+					
+				}
+				//Armo objeto empresa.
+				//Empresa objEmpresa  = empresasQueSigo.findById(objSeguir.idempresaseguida);
+				//html = html+objEmpresa.nombre;
+			}
+			
+			
+			
+			
+			Connection cn = ConnectionProvider.getInstance().getConnection();
+			
+			PreparedStatement statement = cn.prepareStatement(query);
+			
+			
+			ResultSet resultSet = statement.executeQuery();
+			
+			while (resultSet.next()) {
+				lista.add(convertOne(resultSet));
+			}
+		} catch (SQLException sqlException) {
+			throw new PersistenceException(sqlException);
+		}
+		return lista;
+	}
+
+	public List<Publicacion> findAllCommentsGeneral() throws PersistenceException {
+		List<Publicacion> lista = new LinkedList<Publicacion>();
+		try {
+			
+			
+			
+			String query = "select * from publicacion";
+				
+			
+			Connection cn = ConnectionProvider.getInstance().getConnection();
+			
+			PreparedStatement statement = cn.prepareStatement(query);
+			
+			
+			ResultSet resultSet = statement.executeQuery();
+			
+			while (resultSet.next()) {
+				lista.add(convertOne(resultSet));
+			}
+		} catch (SQLException sqlException) {
+			throw new PersistenceException(sqlException);
+		}
+		return lista;
+	}
 }

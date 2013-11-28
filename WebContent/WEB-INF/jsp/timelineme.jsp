@@ -72,22 +72,17 @@
 </head>
 <body>
 	<div class="contenedorPrincipal">
-		<h2 class="left both cien">Bienvenido ${nombre}</h2>
 		
 		<a href="http://localhost:8080/timelineme/empresas/timeline.do">
-			Time Line - Empresas que sigo.
+			Time Line empresas que sigo 
 		</a>
-		<br>
+		<br />
 		<a href="http://localhost:8080/timelineme/empresas/timelinegeneral.do">
 			Time Line - General.
 		</a>
 		
-		<h3 class="left both cien">Estas son las empresas que sigo</h3>
-		<div class="empresasALasQueSigo left both">
-			${empresasquesigo}
-		</div>
-		
-		<h3 class="left both cien">Este es el Timeline de tu Empresa ${empresa}</h3>
+			
+		<h3 class="left both cien">Este es el Timeline de las Empresas que sigues.</h3>
 		<br />
 		<br />
 		<div class="comentarios left both  cien">
@@ -122,6 +117,8 @@
 				</div>
 			</div>
 		</form>
+		
+		
 	</div>
 	<!-- 
 	<a href="../perfil/inicio.do">Probar la sesión</a>

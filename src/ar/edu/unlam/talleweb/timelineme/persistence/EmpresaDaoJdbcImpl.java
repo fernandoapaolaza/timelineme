@@ -50,25 +50,7 @@ public class EmpresaDaoJdbcImpl implements EmpresaDao{
 		return retorno;
 	}
 	
-	public List<Empresa> findFollow(Integer idEmpresa) throws PersistenceException {
-		List<Empresa> lista = new LinkedList<Empresa>();
-		try {
-			String query = "select * from seguir where fkSeguidor = ?";
-			Connection cn = ConnectionProvider.getInstance().getConnection();
-			
-			PreparedStatement statement = cn.prepareStatement(query);
-			statement.setInt(1, idEmpresa);
-			
-			ResultSet resultSet = statement.executeQuery();
-			
-			while (resultSet.next()) {
-				lista.add(convertOne(resultSet));
-			}
-		} catch (SQLException sqlException) {
-			throw new PersistenceException(sqlException);
-		}
-		return lista;
-	}
+	
 
 	
 }

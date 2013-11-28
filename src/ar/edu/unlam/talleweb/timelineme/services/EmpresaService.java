@@ -15,9 +15,5 @@ public class EmpresaService {
 		return miEmpresaDao.findById(idempresa);
 	}
 
-	public List<Empresa> findFollow(int idempresa) throws PersistenceException {
-		EmpresaDao miEmpresaDao = DaoFactory.getEmpresaDao();
-		return miEmpresaDao.findFollow(idempresa);
-
-	}
+	
 }

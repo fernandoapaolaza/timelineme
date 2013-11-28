@@ -14,4 +14,7 @@ public interface PublicacionDao {
     
     public List<Publicacion> findAllByEmpresa(Integer idEmpresa) throws PersistenceException;
 	
+    public List<Publicacion> findAllComments(Integer idAgente) throws PersistenceException;
+    
+    public List<Publicacion> findAllCommentsGeneral() throws PersistenceException;
 }

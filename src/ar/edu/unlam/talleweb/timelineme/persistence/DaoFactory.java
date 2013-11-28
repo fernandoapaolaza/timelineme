@@ -10,4 +10,8 @@ public class DaoFactory {
 		public static EmpresaDao getEmpresaDao(){
 			return EmpresaDaoJdbcImpl.getInstance();
 		}
+		
+		public static SeguirDao getSeguirDao(){
+			return SeguirDaoJdbcImpl.getInstance();
+		}
 }
