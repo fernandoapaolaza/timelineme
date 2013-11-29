@@ -165,13 +165,13 @@ public class EmpresasController{
 			//html = html + agenteObj.id+"-"+empresaObj.id;
 			
 			if(agenteObj.idempresa!=empresaObj.id){
-			
+				
 				Boolean sigue = seguir.sigue(agenteObj.id,empresaObj.id);
 				if(!sigue){
-					html = html+"Aún no sigue a esta empresa! <a href='http://localhost:8080/timelineme/empresas/seguir.do?id="+empresaObj.id+"' style='text-decoration:underline;color:red;'>Seguir!</a>";	
+					html = html+" ¡Aún no sigue a esta empresa! <a href='http://localhost:8080/timelineme/empresas/seguir.do?id="+empresaObj.id+"&seguir=1' style='text-decoration:underline;color:red;'>¡Seguir!</a>";	
 					
 				}else{
-					html = html+"Ya sigues a esta empresa";	
+					html = html+" ¡Ya sigues a esta empresa! <a href='http://localhost:8080/timelineme/empresas/seguir.do?id="+empresaObj.id+"&seguir=0' style='text-decoration:underline;color:red;'>¡Dejar de seguir!</a>";	
 					
 				}
 			}
@@ -375,10 +375,10 @@ public class EmpresasController{
 			
 				Boolean sigue = seguir.sigue(agenteObj.id,empresaObj.id);
 				if(!sigue){
-					html = html+"Aún no sigue a esta empresa! <a href='http://localhost:8080/timelineme/empresas/seguir.do?id="+empresaObj.id+"&seguir=1' style='text-decoration:underline;color:red;'>¡Seguir!</a>";	
+					html = html+" ¡Aún no sigue a esta empresa! <a href='http://localhost:8080/timelineme/empresas/seguir.do?id="+empresaObj.id+"&seguir=1' style='text-decoration:underline;color:red;'>¡Seguir!</a>";	
 					
 				}else{
-					html = html+"Ya sigues a esta empresa! <a href='http://localhost:8080/timelineme/empresas/seguir.do?id="+empresaObj.id+"&seguir=0' style='text-decoration:underline;color:red;'>Dejar de seguir!</a>";	
+					html = html+" ¡Ya sigues a esta empresa! <a href='http://localhost:8080/timelineme/empresas/seguir.do?id="+empresaObj.id+"&seguir=0' style='text-decoration:underline;color:red;'>¡Dejar de seguir!</a>";	
 					
 				}
 			}

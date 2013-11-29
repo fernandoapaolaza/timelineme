@@ -21,8 +21,10 @@ import ar.edu.unlam.talleweb.timelineme.persistence.ConnectionProvider;
 import ar.edu.unlam.talleweb.timelineme.persistence.EmpresaDaoJdbcImpl;
 import ar.edu.unlam.talleweb.timelineme.persistence.PublicacionDaoJdbcImpl;
 import ar.edu.unlam.talleweb.timelineme.persistence.PersistenceException;
+import ar.edu.unlam.talleweb.timelineme.services.AgenteService;
 import ar.edu.unlam.talleweb.timelineme.services.CommentsService;
 import ar.edu.unlam.talleweb.timelineme.persistence.EmpresaDaoJdbcImpl;
+
 
 
 
@@ -45,8 +47,13 @@ public class CommentsController{
 		String username = (String) request.getParameter("username");
 		
 		//Inserto un nuevo comentario.
-		AgenteDaoJdbcImpl agente = new AgenteDaoJdbcImpl();
-		Agente AtributosAgente = agente.findByName(username);
+		
+		AgenteService  agenteService =  new AgenteService();
+		Agente AtributosAgente = agenteService.findByName(username);
+		
+		
+		//AgenteDaoJdbcImpl agente = new AgenteDaoJdbcImpl();
+		//Agente AtributosAgente = agente.findByName(username);
 		
 		
 		
