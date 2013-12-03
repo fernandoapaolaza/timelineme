@@ -137,6 +137,27 @@ public class SeguirDaoJdbcImpl implements SeguirDao{
 		return lista;
 	}
 	
+	public List<Seguir> findNoFollow(Integer idAgente,Integer idEmpresa) throws PersistenceException {
+		List<Seguir> lista = new LinkedList<Seguir>();
+		try {
+			String query = "select * from seguir where fkSeguidor != ? and fkSeguido!=? group by fkSeguido";
+			Connection cn = ConnectionProvider.getInstance().getConnection();
+			
+			PreparedStatement statement = cn.prepareStatement(query);
+			statement.setInt(1, idAgente);
+			statement.setInt(2, idEmpresa);
+			
+			ResultSet resultSet = statement.executeQuery();
+			
+			while (resultSet.next()) {
+				lista.add(convertOne(resultSet));
+			}
+		} catch (SQLException sqlException) {
+			throw new PersistenceException(sqlException);
+		}
+		return lista;
+	}
+	
 	public Boolean sigue(Integer idAgente, Integer idEmpresa) throws PersistenceException {
 		Boolean encuentra = false;
 		try {
