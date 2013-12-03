@@ -15,15 +15,16 @@ import org.springframework.web.servlet.ModelAndView;
 import ar.edu.unlam.talleweb.timelineme.model.Agente;
 import ar.edu.unlam.talleweb.timelineme.model.Empresa;
 import ar.edu.unlam.talleweb.timelineme.model.Seguir;
-import ar.edu.unlam.talleweb.timelineme.persistence.AgenteDaoJdbcImpl;
+
 import ar.edu.unlam.talleweb.timelineme.model.Publicacion;
 import ar.edu.unlam.talleweb.timelineme.persistence.ConnectionProvider;
-import ar.edu.unlam.talleweb.timelineme.persistence.PublicacionDaoJdbcImpl;
 import ar.edu.unlam.talleweb.timelineme.persistence.PersistenceException;
-import ar.edu.unlam.talleweb.timelineme.persistence.SeguirDaoJdbcImpl;
-import ar.edu.unlam.talleweb.timelineme.services.LoginService;
-import ar.edu.unlam.talleweb.timelineme.persistence.EmpresaDaoJdbcImpl;
 
+import ar.edu.unlam.talleweb.timelineme.services.LoginService;
+import ar.edu.unlam.talleweb.timelineme.services.AgenteService;
+import ar.edu.unlam.talleweb.timelineme.services.CommentsService;
+import ar.edu.unlam.talleweb.timelineme.services.EmpresaService;
+import ar.edu.unlam.talleweb.timelineme.services.SeguirService;
 
 
 import java.util.Iterator; //Importo la interfaz Iterator para iterar el arrayList
@@ -39,78 +40,54 @@ public class LoginController {
 	@RequestMapping("/auth")
 	public ModelAndView authenticate(
 				HttpServletRequest request, HttpSession session) throws PersistenceException {
+		
+		
+		//Tomo las variables de usuario y pass que obtengo del formulario.
 		String username = (String) request.getParameter("username");
 		String password = (String) request.getParameter("password");
+		
+		//Seteo dispatch del tipo ModelAndView
 		ModelAndView dispatch = null;
-		session.setAttribute("username", username);
+		
+		
 		if (loginService.authenticate(username, password)) {
-			// Se agrega "username a la sesiï¿½n"
+			//Login válido.
+			
+			//Setea  username en una variable de sesión
 			session.setAttribute("username", username);
 			
-			AgenteDaoJdbcImpl agente = new AgenteDaoJdbcImpl();
+			//Instancio AgenteService
+			AgenteService agente = new AgenteService();
+			
+			//Obtengo un Agente, con el username de la sesión
 			Agente AtributosAgente = agente.findByName(username);
 			
-			String html = "";
 			
-			
-			
-			PublicacionDaoJdbcImpl publicacion = new PublicacionDaoJdbcImpl();
+			//Instancio CommentsService			
+			CommentsService publicacion = new CommentsService();
+			//Obtengo todos los comentarios de una empresa en particular. En este caso el del agente logueado.
 			List<Publicacion> resultados = publicacion.findAllByEmpresa(AtributosAgente.idempresa);
 			
-			Iterator<Publicacion> results = resultados.iterator();
+			
+			//Envio el List con los resultados de comentarios de esta empresa.			
+			dispatch = new ModelAndView("welcome", "message", resultados); 
 			
 			
-			while ( results.hasNext() ) {
-				Publicacion row = results.next();
-				
-				AgenteDaoJdbcImpl agentecomenta = new AgenteDaoJdbcImpl();
-				Agente datosAgente  = agentecomenta.findById(row.getIdagente());
-				
-				html = html + "<p class='left both cien'>";
-				html = html + "<b>" +datosAgente.nombre +"</b>";
-				html = html + "<i>("+row.getFecha()+")</i> dijo:";
-				html = html + "<br />";
-				html = html + row.getComentario() +"<br /><br />";
-				html = html + "</p>";
-				html = html + "<hr />";
-			}
-			
-			//request.getSession().setAttribute("club", new Objeto());
-			
-			dispatch = new ModelAndView("welcome", "message",html); 
-			dispatch.addObject("nombre", username);
-			
-			EmpresaDaoJdbcImpl empresa = new EmpresaDaoJdbcImpl();
+			//Instancio EmpresaService
+			EmpresaService empresa = new EmpresaService();
 			Empresa ObjEmpresa = empresa.findById(AtributosAgente.idempresa);
 			
-			//Empresas que sigo
-			SeguirDaoJdbcImpl sigue = new SeguirDaoJdbcImpl();
-			List<Seguir> resultadosseguidas = sigue.findFollow(AtributosAgente.id);
-			
-			Iterator<Seguir> resultsseguidas = resultadosseguidas.iterator();
-			
-			
-			
-			String Seguidas="";
-			
-			while ( resultsseguidas.hasNext() ) {
-				Seguir row = resultsseguidas.next();
-				
-				Seguir objSeguir = sigue.findById(row.getId());
-				
-				
-				EmpresaDaoJdbcImpl empresasQueSigo = new EmpresaDaoJdbcImpl();
-				//Armo objeto empresa.
-				Empresa objEmpresa  = empresasQueSigo.findById(objSeguir.idempresaseguida);
-				Seguidas = Seguidas+objEmpresa.nombre+"<br />";
-				
-				
-				
-				
-			}
-			
-			dispatch.addObject("empresasquesigo", Seguidas);
+			//Despacho la variable con el nombre de la empresa.
 			dispatch.addObject("empresa", ObjEmpresa.nombre);
+			
+			//Empresas que sigo
+			SeguirService sigue = new SeguirService();
+			List<Seguir> resultadosSeguidas = sigue.findFollow(AtributosAgente.id);
+			
+			//Despacho la variable con el nombre de la empresa.
+			dispatch.addObject("empresasQueSigo", resultadosSeguidas);
+			
+			
 		} else {
 			dispatch = new ModelAndView("error", "message", "Ingreso incorrecto");
 		}

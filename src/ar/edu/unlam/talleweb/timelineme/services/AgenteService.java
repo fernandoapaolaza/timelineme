@@ -14,6 +14,12 @@ public class AgenteService {
 		AgenteDao miAgenteDao = DaoFactory.getAgenteDao();
 		return miAgenteDao.findByName(username);
 	}
+	
+	public Agente findById(Integer idagente) throws PersistenceException {
+		
+		AgenteDao miAgenteDao = DaoFactory.getAgenteDao();
+		return miAgenteDao.findById(idagente);
+	}
 
 	public List<Agente> findAll() throws PersistenceException {
 		AgenteDao miAgenteDao = DaoFactory.getAgenteDao();

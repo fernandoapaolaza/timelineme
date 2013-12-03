@@ -77,26 +77,27 @@
 			Time Line - Me.
 		</a>
 		<br />
-		<a href="http://localhost:8080/timelineme/empresas/timelinegeneral.do">
-			Time Line - General.
-		</a>
+		
 		
 			
-		<h3 class="left both cien">Este es el Timeline de tu empresa.</h3>
+		<h3 class="left both cien">Este es el Timeline de las empresas a las que sigues.</h3>
 		<br />
 		<br />
 		<div class="comentarios left both  cien">
-		${message}
+		<c:forEach items="${message}" var="unComentario">
+  			<br/> 
+  			<p class='left both cien'>
+  				${unComentario.agente.nombre} a las <b>(${unComentario.fecha})</b> dijo:
+  				<br>
+				<b>${unComentario.comentario}</b>
+			</p>
+		</c:forEach>
 		</div>
 		<br />
 		
 		
 		
-		
 	</div>
-	<!-- 
-	<a href="../perfil/inicio.do">Probar la sesión</a>
-	 -->
-	
+		
 </body>
 </html>

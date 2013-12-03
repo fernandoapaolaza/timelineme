@@ -15,20 +15,16 @@ import org.springframework.web.servlet.ModelAndView;
 
 import ar.edu.unlam.talleweb.timelineme.model.Agente;
 import ar.edu.unlam.talleweb.timelineme.model.Empresa;
-import ar.edu.unlam.talleweb.timelineme.persistence.AgenteDaoJdbcImpl;
+import ar.edu.unlam.talleweb.timelineme.model.Seguir;
 import ar.edu.unlam.talleweb.timelineme.model.Publicacion;
 import ar.edu.unlam.talleweb.timelineme.persistence.ConnectionProvider;
-import ar.edu.unlam.talleweb.timelineme.persistence.EmpresaDaoJdbcImpl;
+
 import ar.edu.unlam.talleweb.timelineme.persistence.PublicacionDaoJdbcImpl;
 import ar.edu.unlam.talleweb.timelineme.persistence.PersistenceException;
 import ar.edu.unlam.talleweb.timelineme.services.AgenteService;
 import ar.edu.unlam.talleweb.timelineme.services.CommentsService;
-import ar.edu.unlam.talleweb.timelineme.persistence.EmpresaDaoJdbcImpl;
-
-
-
-
-
+import ar.edu.unlam.talleweb.timelineme.services.EmpresaService;
+import ar.edu.unlam.talleweb.timelineme.services.SeguirService;
 
 
 
@@ -43,25 +39,24 @@ public class CommentsController{
 	@RequestMapping("/comment")
 	public ModelAndView comment(
 			HttpServletRequest request, HttpSession session) throws PersistenceException {
+		
+		//Tomo los valores del formulario.
 		String comments = (String) request.getParameter("comments");
 		String username = (String) request.getParameter("username");
 		
-		//Inserto un nuevo comentario.
 		
+		//Instancio AgenteService.
 		AgenteService  agenteService =  new AgenteService();
+		//Obtengo un objeto agente del usuario actual.
 		Agente AtributosAgente = agenteService.findByName(username);
 		
-		
-		//AgenteDaoJdbcImpl agente = new AgenteDaoJdbcImpl();
-		//Agente AtributosAgente = agente.findByName(username);
-		
-		
-		
+		//Inserto un nuevo comentario.
 		Publicacion objPublicacion = new Publicacion();
 		objPublicacion.comentario = comments;
 		objPublicacion.idagente = AtributosAgente.id;
 		objPublicacion.idempresa = AtributosAgente.idempresa;
 		
+		//Armo la fecha
 		Calendar fecha = Calendar.getInstance();
 		int año = fecha.get(Calendar.YEAR);
         int mes = fecha.get(Calendar.MONTH);
@@ -72,46 +67,39 @@ public class CommentsController{
 		 
 		objPublicacion.fecha = año+"-"+mes+"-"+dia+" "+hora+":"+minuto+":"+segundo;
 		
-		PublicacionDaoJdbcImpl publicacionInsert = new PublicacionDaoJdbcImpl();
-		publicacionInsert.insert(objPublicacion);
 		
-		/**/
-		
-		
-		String html = "";
+		//Instancio PublicacionDaoJdbcImpl		
+		PublicacionDaoJdbcImpl publicacioninsert = new PublicacionDaoJdbcImpl();
+		publicacioninsert.insert(objPublicacion);
 		
 		
-		PublicacionDaoJdbcImpl publicacion = new PublicacionDaoJdbcImpl();
+		//Instancio CommentsService			
+		CommentsService publicacion = new CommentsService();
+				
+		//Obtengo todos los comentarios de una empresa en particular. En este caso el del agente logueado.
 		List<Publicacion> resultados = publicacion.findAllByEmpresa(AtributosAgente.idempresa);
 		
-		Iterator<Publicacion> results = resultados.iterator();
-		
-		
-		while ( results.hasNext() ) {
-			Publicacion row = results.next();
-			
-			AgenteDaoJdbcImpl agentecomenta = new AgenteDaoJdbcImpl();
-			Agente datosAgente  = agentecomenta.findById(row.getIdagente());
-			html = html + "<p class='left both cien'>";
-			html = html + "<b>" +datosAgente.nombre +"</b>";
-			html = html + "<i>("+row.getFecha()+") dijo:</i>";
-			html = html + "<br />";
-			html = html + row.getComentario() +"<br /><br />";
-			html = html + "</p>";
-			html = html + "<hr />";
-		}
-		
-		
-		/**/
+		//Instancio lo que voy a despachar.
 		ModelAndView dispatch = null;
 		
-		dispatch = new ModelAndView("welcome", "message", html);
-		dispatch.addObject("nombre", username);
+		//Envio el List con los resultados de comentarios de esta empresa.			
+		dispatch = new ModelAndView("welcome", "message", resultados); 
 		
-		EmpresaDaoJdbcImpl empresa = new EmpresaDaoJdbcImpl();
+		
+		//Instancio EmpresaService
+		EmpresaService empresa = new EmpresaService();
 		Empresa ObjEmpresa = empresa.findById(AtributosAgente.idempresa);
 		
+		//Despacho la variable con el nombre de la empresa.
 		dispatch.addObject("empresa", ObjEmpresa.nombre);
+		
+		//Empresas que sigo
+		SeguirService sigue = new SeguirService();
+		List<Seguir> resultadosSeguidas = sigue.findFollow(AtributosAgente.id);
+		
+		//Despacho la variable con el nombre de la empresa.
+		dispatch.addObject("empresasQueSigo", resultadosSeguidas);
+		
 		return dispatch;
 	}
 	

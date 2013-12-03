@@ -1,11 +1,15 @@
 package ar.edu.unlam.talleweb.timelineme.model;
 
+import ar.edu.unlam.talleweb.timelineme.persistence.PersistenceException;
+import ar.edu.unlam.talleweb.timelineme.services.AgenteService;
+
 public class Publicacion {
 	public Integer id;
 	public String comentario;
 	public Integer idempresa;
 	public Integer idagente;
 	public String fecha;
+	public Agente agente;
 	
 	public Publicacion() {
 		super();
@@ -44,5 +48,16 @@ public class Publicacion {
 	}
 	public void setFecha(String fecha) {
 		this.fecha = fecha;
+	}
+	
+	
+	public Agente getAgente() {
+		return this.agente;
+	}
+	
+	public void setAgente(Integer idAgente) throws PersistenceException {
+		AgenteService servicioDeAgente = new AgenteService();
+		Agente ObjAgente = servicioDeAgente.findById(idAgente);
+		this.agente = ObjAgente;
 	}
 }

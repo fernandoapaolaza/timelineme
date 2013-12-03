@@ -77,18 +77,29 @@
 			Time Line empresas que sigo 
 		</a>
 		<br />
-		<a href="http://localhost:8080/timelineme/empresas/timelinegeneral.do">
-			Time Line - General.
-		</a>
+		
+		<h3 class="left both cien">Estas son las empresas que sigo</h3>
+		<div class="empresasALasQueSigo left both">
+			<ul>
+				<c:forEach items="${empresasQueSigo}" var="unaEmpresa">
+		  			<li> 
+		  				${unaEmpresa.empresa.nombre}
+					</li>
+				</c:forEach>
+			</ul>
+		</div>
 		
 			
-		<h3 class="left both cien">Este es el Timeline de las Empresas que sigues.</h3>
-		<br />
-		<br />
-		<div class="comentarios left both  cien">
-		${message}
-		</div>
-		<br />
+		<h3 class="left both cien">Este es el Timeline de tu Empresa ${empresa}</h3>
+		
+		<c:forEach items="${message}" var="unComentario">
+  			<br/> 
+  			<p class='left both cien'>
+  				${unComentario.agente.nombre} a las <b>(${unComentario.fecha})</b> dijo:
+  				<br>
+				<b>${unComentario.comentario}</b>
+			</p>
+		</c:forEach>
 		
 		<h4 class="left both  cien">Escribe un comentario</h4>
 		<br />

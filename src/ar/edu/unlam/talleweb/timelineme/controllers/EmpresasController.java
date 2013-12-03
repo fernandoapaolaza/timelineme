@@ -23,17 +23,11 @@ import ar.edu.unlam.talleweb.timelineme.persistence.EmpresaDaoJdbcImpl;
 import ar.edu.unlam.talleweb.timelineme.persistence.PublicacionDaoJdbcImpl;
 import ar.edu.unlam.talleweb.timelineme.persistence.PersistenceException;
 import ar.edu.unlam.talleweb.timelineme.services.CommentsService;
+import ar.edu.unlam.talleweb.timelineme.services.AgenteService;
+import ar.edu.unlam.talleweb.timelineme.services.EmpresaService;
+import ar.edu.unlam.talleweb.timelineme.services.SeguirService;
 import ar.edu.unlam.talleweb.timelineme.persistence.EmpresaDaoJdbcImpl;
 import ar.edu.unlam.talleweb.timelineme.persistence.SeguirDaoJdbcImpl;
-
-
-
-
-
-
-
-
-
 
 import java.util.Iterator; //Importo la interfaz Iterator para iterar el arrayList
 import java.util.ArrayList; //Importo la clase ArrayList para poder usar la lista
@@ -47,9 +41,7 @@ public class EmpresasController{
 	public ModelAndView timeline(
 			HttpServletRequest request, HttpSession session) throws PersistenceException {
 		
-		
-		/*Traigo todas las empresas que sigo*/
-		
+		//Defino la salida.
 		ModelAndView dispatch = null;
 		
 		//Recupero el usuario.
@@ -57,161 +49,23 @@ public class EmpresasController{
 		
 		
 		//Creo mi instancia de agente
-		AgenteDaoJdbcImpl agente = new AgenteDaoJdbcImpl();
-		Agente agenteObj = agente.findByName(name);
+		AgenteService servicioDeAgente = new AgenteService();
+		Agente agenteObj = servicioDeAgente.findByName(name);
 		
-		
-		PublicacionDaoJdbcImpl publicaciones = new PublicacionDaoJdbcImpl();
+		//Obtengo una lista de los comentarios de las empresas que sigo.
+		CommentsService publicaciones = new CommentsService();
 		List<Publicacion> comentariosDeEmpresasQueSigo = publicaciones.findAllComments(agenteObj.id);
 		
-		String html ="";
+		//Despacho la Lista
+		dispatch = new ModelAndView("timeline", "message", comentariosDeEmpresasQueSigo);
 		
 		
-		
-		Iterator<Publicacion> results = comentariosDeEmpresasQueSigo.iterator();
-		
-		
-		while ( results.hasNext() ) {
-			Publicacion row = results.next();
-			
-			AgenteDaoJdbcImpl agentecomenta = new AgenteDaoJdbcImpl();
-			Agente datosAgente  = agentecomenta.findById(row.getIdagente());
-			
-			html = html + "<p class='left both cien'>";
-			html = html + "<b>" +datosAgente.nombre +"</b>";
-			html = html + "<i>("+row.getFecha()+")</i> dijo:";
-			html = html + "<br />";
-			html = html + row.getComentario() +"<br /><br />";
-			html = html + "</p>";
-			html = html + "<hr />";
-		}
-		
-		//request.getSession().setAttribute("club", new Objeto());
-		
-		//dispatch = new ModelAndView("welcome", "message",html); 
-		//dispatch.addObject("nombre", name);
-		/*
-		 * Empresas que sigue.
-		Iterator<Seguir> results = resultados.iterator();
-		
-		String html="";
-		
-		while ( results.hasNext() ) {
-			Seguir row = results.next();
-			
-			Seguir objSeguir = sigue.findById(row.getId());
-			
-			
-			EmpresaDaoJdbcImpl empresasQueSigo = new EmpresaDaoJdbcImpl();
-			//Armo objeto empresa.
-			//Empresa objEmpresa  = empresasQueSigo.findById(objSeguir.idempresaseguida);
-			//html = html+objEmpresa.nombre;
-			
-			
-			
-			
-		}*/
-		
-		dispatch = new ModelAndView("timeline", "message", html);
 		dispatch.addObject("nombre", name);
 		return dispatch;
 	}
 	
 	
 	
-	@RequestMapping("/timelinegeneral")
-	public ModelAndView timelinegeneral(
-			HttpServletRequest request, HttpSession session) throws PersistenceException {
-		
-		
-		/*Traigo todas las empresas que sigo*/
-		
-		ModelAndView dispatch = null;
-		
-		//Recupero el usuario.
-		String name = (String) session.getAttribute("username");
-		
-		
-		//Creo mi instancia de agente
-		AgenteDaoJdbcImpl agente = new AgenteDaoJdbcImpl();
-		Agente agenteObj = agente.findByName(name);
-		
-		
-		PublicacionDaoJdbcImpl publicaciones = new PublicacionDaoJdbcImpl();
-		List<Publicacion> comentariosDeEmpresas = publicaciones.findAllCommentsGeneral();
-		
-		String html ="";
-		
-		
-		
-		Iterator<Publicacion> results = comentariosDeEmpresas.iterator();
-		
-		
-		while ( results.hasNext() ) {
-			Publicacion row = results.next();
-			
-			AgenteDaoJdbcImpl agentecomenta = new AgenteDaoJdbcImpl();
-			Agente datosAgente  = agentecomenta.findById(row.getIdagente());
-			
-			EmpresaDaoJdbcImpl empresaagente = new EmpresaDaoJdbcImpl();
-			Empresa empresaObj  = empresaagente.findById(row.getIdempresa());
-			
-			html = html + "<p class='left both cien'>";
-			html = html + "<b>" +datosAgente.nombre +" de la empresa "+empresaObj.nombre+"</b>";
-			
-			//Preguntar si sigue a esta empresa:
-			SeguirDaoJdbcImpl seguir = new SeguirDaoJdbcImpl();
-			
-			//html = html + agenteObj.id+"-"+empresaObj.id;
-			
-			if(agenteObj.idempresa!=empresaObj.id){
-				
-				Boolean sigue = seguir.sigue(agenteObj.id,empresaObj.id);
-				if(!sigue){
-					html = html+" ¡Aún no sigue a esta empresa! <a href='http://localhost:8080/timelineme/empresas/seguir.do?id="+empresaObj.id+"&seguir=1' style='text-decoration:underline;color:red;'>¡Seguir!</a>";	
-					
-				}else{
-					html = html+" ¡Ya sigues a esta empresa! <a href='http://localhost:8080/timelineme/empresas/seguir.do?id="+empresaObj.id+"&seguir=0' style='text-decoration:underline;color:red;'>¡Dejar de seguir!</a>";	
-					
-				}
-			}
-			
-			html = html + "<i>("+row.getFecha()+")</i> dijo:";
-			html = html + "<br />";
-			html = html + row.getComentario() +"<br /><br />";
-			html = html + "</p>";
-			html = html + "<hr />";
-		}
-		
-		//request.getSession().setAttribute("club", new Objeto());
-		
-		
-		/*
-		 * Empresas que sigue.
-		Iterator<Seguir> results = resultados.iterator();
-		
-		String html="";
-		
-		while ( results.hasNext() ) {
-			Seguir row = results.next();
-			
-			Seguir objSeguir = sigue.findById(row.getId());
-			
-			
-			EmpresaDaoJdbcImpl empresasQueSigo = new EmpresaDaoJdbcImpl();
-			//Armo objeto empresa.
-			//Empresa objEmpresa  = empresasQueSigo.findById(objSeguir.idempresaseguida);
-			//html = html+objEmpresa.nombre;
-			
-			
-			
-			
-		}*/
-		
-		dispatch = new ModelAndView("timelinegeneral", "message", html);
-		dispatch.addObject("nombre", name);
-		return dispatch;
-	}
 	
 	@RequestMapping("/timelineme")
 	public ModelAndView timelineme(
@@ -220,79 +74,48 @@ public class EmpresasController{
 		//Recupero el usuario.
 		String name = (String) session.getAttribute("username");
 				
-		/*Traigo todas las empresas que sigo*/
-		
+		//Declaro lo que voy a despachar.	
 		ModelAndView dispatch = null;
 		
-
-		AgenteDaoJdbcImpl agente = new AgenteDaoJdbcImpl();
-		Agente AtributosAgente = agente.findByName(name);
-		
-		String html = "";
+		//Creo mi instancia de agente
+		AgenteService servicioDeAgente = new AgenteService();
+		Agente agenteObj = servicioDeAgente.findByName(name);
 		
 		
+		//Obtengo una lista de los comentarios de las empresas que sigo.
+		CommentsService publicaciones = new CommentsService();
+		List<Publicacion> comentariosDeEmpresasQueSigo = publicaciones.findAllByEmpresa(agenteObj.id);
 		
-		PublicacionDaoJdbcImpl publicacion = new PublicacionDaoJdbcImpl();
-		List<Publicacion> resultados = publicacion.findAllByEmpresa(AtributosAgente.idempresa);
+		//Despacho la Lista
+		dispatch = new ModelAndView("timelineme", "message", comentariosDeEmpresasQueSigo);
 		
-		Iterator<Publicacion> results = resultados.iterator();
+		//Despacho el nombre del usuario
+		dispatch.addObject("nombre", name);
 		
+		//Instancio EmpresaService
+		EmpresaService empresa = new EmpresaService();
+		Empresa ObjEmpresa = empresa.findById(agenteObj.idempresa);
 		
-		while ( results.hasNext() ) {
-			Publicacion row = results.next();
-			
-			AgenteDaoJdbcImpl agentecomenta = new AgenteDaoJdbcImpl();
-			Agente datosAgente  = agentecomenta.findById(row.getIdagente());
-			
-			html = html + "<p class='left both cien'>";
-			html = html + "<b>" +datosAgente.nombre +"</b>";
-			html = html + "<i>("+row.getFecha()+")</i> dijo:";
-			html = html + "<br />";
-			html = html + row.getComentario() +"<br /><br />";
-			html = html + "</p>";
-			html = html + "<hr />";
-		}
-		
-		//request.getSession().setAttribute("club", new Objeto());
-		
-		
-		//Empresa del agente
-		EmpresaDaoJdbcImpl empresa = new EmpresaDaoJdbcImpl();
-		Empresa ObjEmpresa = empresa.findById(AtributosAgente.idempresa);
+		//Despacho la variable con el nombre de la empresa.
+		dispatch.addObject("empresa", ObjEmpresa.nombre);
 		
 		//Empresas que sigo
-		SeguirDaoJdbcImpl sigue = new SeguirDaoJdbcImpl();
-		List<Seguir> resultadosseguidas = sigue.findFollow(AtributosAgente.id);
+		SeguirService sigue = new SeguirService();
+		List<Seguir> resultadosSeguidas = sigue.findFollow(agenteObj.id);
 		
-		Iterator<Seguir> resultsseguidas = resultadosseguidas.iterator();
+		//Despacho la variable con el nombre de la empresa.
+		dispatch.addObject("empresasQueSigo", resultadosSeguidas);
 		
-		
-		
-		String Seguidas="";
-		
-		while ( resultsseguidas.hasNext() ) {
-			Seguir row = resultsseguidas.next();
-			
-			Seguir objSeguir = sigue.findById(row.getId());
-			
-			
-			EmpresaDaoJdbcImpl empresasQueSigo = new EmpresaDaoJdbcImpl();
-			//Armo objeto empresa.
-			Empresa objEmpresa  = empresasQueSigo.findById(objSeguir.idempresaseguida);
-			Seguidas = Seguidas+objEmpresa.nombre+"<br />";
-			
-			
-			
-			
-		}
-		
-		
-		
-		
-		dispatch = new ModelAndView("welcome", "message", html);
-		dispatch.addObject("nombre", name);
-		dispatch.addObject("empresasquesigo", Seguidas);
 		return dispatch;
+		
+		
+		
+		
+		
+		
+		
+		
+		
 	}
 	
 	@RequestMapping("/seguir")

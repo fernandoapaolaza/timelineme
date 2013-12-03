@@ -107,19 +107,20 @@ public class SeguirDaoJdbcImpl implements SeguirDao{
 		return seguir;
 	}
 	
-	private Seguir convertOne(ResultSet resultSet) throws SQLException {
+	private Seguir convertOne(ResultSet resultSet) throws SQLException, PersistenceException {
 		Seguir retorno = new Seguir();
 
 		retorno.setId(resultSet.getInt("iId"));
 		retorno.setIdseguidor(resultSet.getInt("fkSeguidor"));
 		retorno.setIdempresaseguida(resultSet.getInt("fkSeguido"));
+		retorno.setEmpresa(resultSet.getInt("fkSeguido"));
 		return retorno;
 	}
 	
 	public List<Seguir> findFollow(Integer idAgente) throws PersistenceException {
 		List<Seguir> lista = new LinkedList<Seguir>();
 		try {
-			String query = "select * from seguir where fkSeguidor = ?";
+			String query = "select * from seguir where fkSeguidor = ? group by fkSeguido";
 			Connection cn = ConnectionProvider.getInstance().getConnection();
 			
 			PreparedStatement statement = cn.prepareStatement(query);

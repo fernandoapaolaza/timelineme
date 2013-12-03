@@ -68,31 +68,42 @@
 		font-size:12px;
 	}
 </style>
-<title>Bienvenido ${nombre}</title>
+<title>Bienvenido ${username}</title>
 </head>
 <body>
 	<div class="contenedorPrincipal">
-		<h2 class="left both cien">Bienvenido ${nombre}</h2>
+		<h2 class="left both cien">Bienvenido ${username}</h2>
 		
 		<a href="http://localhost:8080/timelineme/empresas/timeline.do">
 			Time Line - Empresas que sigo.
 		</a>
 		<br>
-		<a href="http://localhost:8080/timelineme/empresas/timelinegeneral.do">
-			Time Line - General.
-		</a>
 		
 		<h3 class="left both cien">Estas son las empresas que sigo</h3>
+		
 		<div class="empresasALasQueSigo left both">
-			${empresasquesigo}
+			<ul>
+				<c:forEach items="${empresasQueSigo}" var="unaEmpresa">
+		  			<li> 
+		  				${unaEmpresa.empresa.nombre}
+					</li>
+				</c:forEach>
+			</ul>
 		</div>
 		
 		<h3 class="left both cien">Este es el Timeline de tu Empresa ${empresa}</h3>
+		
+		<c:forEach items="${message}" var="unComentario">
+  			<br/> 
+  			<p class='left both cien'>
+  				${unComentario.agente.nombre} a las <b>(${unComentario.fecha})</b> dijo:
+  				<br>
+				<b>${unComentario.comentario}</b>
+			</p>
+		</c:forEach>
+		
 		<br />
 		<br />
-		<div class="comentarios left both  cien">
-		${message}
-		</div>
 		<br />
 		
 		<h4 class="left both  cien">Escribe un comentario</h4>
@@ -110,7 +121,7 @@
 			<div class="control-group  left both  cien">
 				<label class="control-label  cien left both" for="inputComentario">Comentario</label>
 				<div class="controls  left both  cien">
-					<input type="hidden" name="username" id="username" value="${nombre}">
+					<input type="hidden" name="username" id="username" value="${username}">
 					
 					<textarea type="text" class=" left both" name="comments" id="comments" placeholder="Escriba su comentario"></textarea>
 					

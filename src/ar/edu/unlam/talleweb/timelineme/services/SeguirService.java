@@ -12,6 +12,5 @@ public class SeguirService {
 	public List<Seguir> findFollow(int idagente) throws PersistenceException {
 		SeguirDao miSeguirDao = DaoFactory.getSeguirDao();
 		return miSeguirDao.findFollow(idagente);
-
 	}
 }

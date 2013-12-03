@@ -91,7 +91,7 @@ public class PublicacionDaoJdbcImpl implements PublicacionDao{
 		Publicacion publicacion = null;
 		try {
 			Connection c = ConnectionProvider.getInstance().getConnection();
-			String query = "select * from publicacion where iId = ?";
+			String query = "select * from publicacion where iId = ? order by iId DESC";
 			PreparedStatement statement = c.prepareStatement(query);
 			statement.setInt(1, idPublicacion);
 			ResultSet resultSet = statement.executeQuery();
@@ -104,7 +104,7 @@ public class PublicacionDaoJdbcImpl implements PublicacionDao{
 		return publicacion;
 	}
 
-	private Publicacion convertOne(ResultSet resultSet) throws SQLException {
+	private Publicacion convertOne(ResultSet resultSet) throws SQLException, PersistenceException {
 		Publicacion retorno = new Publicacion();
 
 		retorno.setId(resultSet.getInt("iId"));
@@ -112,14 +112,15 @@ public class PublicacionDaoJdbcImpl implements PublicacionDao{
 		retorno.setIdempresa(resultSet.getInt("fkEmpresa"));
 		retorno.setIdagente(resultSet.getInt("fkAgente"));
 		retorno.setFecha(resultSet.getString("dFecha"));
-
+		retorno.setAgente(resultSet.getInt("fkAgente"));
+		
 		return retorno;
 	}
 	
 	public List<Publicacion> findAllByEmpresa(Integer idEmpresa) throws PersistenceException {
 		List<Publicacion> lista = new LinkedList<Publicacion>();
 		try {
-			String query = "select * from publicacion where fkEmpresa = ?";
+			String query = "select * from publicacion where fkEmpresa = ? order by iId DESC";
 			Connection cn = ConnectionProvider.getInstance().getConnection();
 			
 			PreparedStatement statement = cn.prepareStatement(query);
