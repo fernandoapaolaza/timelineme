@@ -88,7 +88,15 @@
 				</c:forEach>
 			</ul>
 		</div>
-		
+		<div class="empresasALasQueSigo left both">
+			<ul>
+				<c:forEach items="${empresasQueNoSigo}" var="unaEmpresaNoseguida">
+		  			<li> 
+		  				${unaEmpresaNoseguida.empresa.nombre}
+					</li>
+				</c:forEach>
+			</ul>
+		</div>
 			
 		<h3 class="left both cien">Este es el Timeline de tu Empresa ${empresa}</h3>
 		

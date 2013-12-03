@@ -64,9 +64,7 @@ public class EmpresasController{
 		return dispatch;
 	}
 	
-	
-	
-	
+		
 	@RequestMapping("/timelineme")
 	public ModelAndView timelineme(
 			HttpServletRequest request, HttpSession session) throws PersistenceException {
