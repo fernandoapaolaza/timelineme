@@ -3,9 +3,8 @@ body{
 }
 
 
-#contenedor{ width: 1000px;
-            
-            margin: 0 auto;
+#contenedor{ 	width: 1000px;
+            	margin: 0 auto;
             }
 
 
@@ -28,34 +27,35 @@ h1{ color: #ffffff;
     text-align:center;   
 }
 
-fieldset{         /*borde de "envianos tu comentario", como efecto recuadro*/
-      border: .1em solid #20B5EB;
-      border-radius:5px;
-      padding: 1em;
-      height: 780px;
-      background-color: #E1E4E6;
-}
 
-#cuerpo fieldset{padding: 5px;}
 
-legend{           /* tecto en le marco */
-      color: #000;
-      font-size: 1.2em;
-      font-weight: bold;
-}
 
-#cuerpoizq{border-radius:15px;
-  height: 750px;
-            width: 1000px;
+
+#cuerpoizq{	border-radius:15px;
+  			height: 750px;
+            width: 480px;
             background-color: #7D3C3C;
-        float:left;
+       	 	float:left;
+       	 	margin-left:20px;
+       	 	text-align:center;
 }
 
-#cuerpoder{border-radius:15px;
-  height: 500px;
-            width: 250px;
-            background-color: #307088;
-             margin-right: 15px;
-        float:right;
+#cuerpoizq a{margin: 2px; margin-both:4px;}
+
+#cuerpoder{ border-radius:15px;
+  			height: 750px;
+            width: 480px;
+            background-color: #7D3C3C;
+            float:left;
+            padding-left: 15px;
+            padding-right: auto;
+            padding:5em auto;
 }
+
+.contenedorempresa{width: 400px;
+                   height: 280px;
+                   background-color:#ffffff;
+                   overflow: scroll;
+                   margin: auto;
+                  }
 
