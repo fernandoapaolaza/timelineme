@@ -15,20 +15,20 @@
 	<div id="contenedor">
 	<div id="encabezado">
 		<h1>TIMELINE-ME</h1>
-		<h2 class="left both cien">Bienvenido ${username}</h2>
+		
 	</div>
 	<div id="cuerpo">
-		
+		<h2 class="left both cien" style="text-align:center;">Bienvenido ${username}</h2>
 		<div id="cuerpoizq">
 		
 		
 		<a href="http://localhost:8080/timelineme/empresas/timeline.do">
 			Time Line - Empresas que sigo.
 		</a>
-		<br>
+		
 		
 		<h3 class="left both cien">Estas son las empresas que sigo</h3>
-		
+		<div class="contenedorempresa">
 		<div class="empresasALasQueSigo left both">
 			<ul>
 				<c:forEach items="${empresasQueSigo}" var="unaEmpresa">
@@ -40,9 +40,13 @@
 				</c:forEach>
 			</ul>
 		</div>
+		</div>
+		<br />
+		<br />
+		
 		
 		<h3 class="left both cien">Estas son las empresas que NO sigo</h3>
-		
+		<div class="contenedorempresa">
 		<div class="empresasALasQueSigo left both">
 			<ul>
 				<c:forEach items="${empresasQueNoSigo}" var="unaEmpresaNoseguida">
@@ -54,10 +58,11 @@
 				</c:forEach>
 			</ul>
 		</div>
-		
+		</div>
+		</div>
 		<div id="cuerpoder">
 		<h3 class="left both cien">Este es el Timeline de tu Empresa ${empresa}</h3>
-		
+		<div class="contenedorempresa">
 		<c:forEach items="${message}" var="unComentario">
   			<br/> 
   			<p class='left both cien'>
@@ -66,15 +71,13 @@
 				<b>${unComentario.comentario}</b>
 			</p>
 		</c:forEach>
+		</div>
 		
 		<br />
-		<br />
-		<br />
 		
-		<h4 class="left both  cien">Escribe un comentario</h4>
-		<br />
+		<h4 >Escribe un comentario</h4>
 		
-		<p class="left both  cien">
+		<p>
 			<i>
 				<span class="rojo">
 					<b>${nombre}</b>
@@ -102,7 +105,6 @@
 	<!-- 
 	<a href="../perfil/inicio.do">Probar la sesión</a>
 	 -->
-	 </div>
 	 </div>
 	</div>
 </body>
