@@ -163,7 +163,7 @@ public class PublicacionDaoJdbcImpl implements PublicacionDao{
 					query =  query + " fkEmpresa = "+objSeguir.idempresaseguida+" ";
 					primeravez = false;
 				}else{
-					query =  query + " AND fkEmpresa = "+objSeguir.idempresaseguida+" ";
+					query =  query + " OR fkEmpresa = "+objSeguir.idempresaseguida+" ";
 					
 				}
 				//Armo objeto empresa.
@@ -172,7 +172,7 @@ public class PublicacionDaoJdbcImpl implements PublicacionDao{
 			}
 			
 			
-			
+			//System.out.println(query);
 			
 			Connection cn = ConnectionProvider.getInstance().getConnection();
 			

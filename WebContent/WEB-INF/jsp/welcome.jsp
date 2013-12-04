@@ -86,7 +86,7 @@
 				<c:forEach items="${empresasQueSigo}" var="unaEmpresa">
 		  			<li> 
 		  				${unaEmpresa.empresa.nombre}
-		  				<a href="http://localhost:8080/timelineme/seguir/dejardeseguir.do?username=${username}&idempresa=${unaEmpresa.empresa.id}">¡Dejar de Seguir!</a>
+		  				<a href="http://localhost:8080/timelineme/seguir/timelineme_dejardeseguir.do?username=${username}&idempresa=${unaEmpresa.empresa.id}">¡Dejar de Seguir!</a>
 					</li>
 					
 				</c:forEach>
@@ -101,7 +101,7 @@
 		  			<li> 
 		  				${unaEmpresaNoseguida.empresa.nombre}
 		  				
-		  				<a href="http://localhost:8080/timelineme/seguir/seguir.do?username=${username}&idempresa=${unaEmpresaNoseguida.empresa.id}">¡Seguir!</a>
+		  				<a href="http://localhost:8080/timelineme/seguir/timelineme_seguir.do?username=${username}&idempresa=${unaEmpresaNoseguida.empresa.id}">¡Seguir!</a>
 					</li>
 				</c:forEach>
 			</ul>

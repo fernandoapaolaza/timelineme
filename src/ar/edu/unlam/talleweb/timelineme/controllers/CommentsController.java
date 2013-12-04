@@ -100,6 +100,10 @@ public class CommentsController{
 		//Despacho la variable con el nombre de la empresa.
 		dispatch.addObject("empresasQueSigo", resultadosSeguidas);
 		
+		//Empresas que no sigo
+		List<Seguir> resultadosNoSeguidas = sigue.findNoFollow(AtributosAgente.id,AtributosAgente.idempresa);
+		dispatch.addObject("empresasQueNoSigo", resultadosNoSeguidas);
+		
 		return dispatch;
 	}
 	

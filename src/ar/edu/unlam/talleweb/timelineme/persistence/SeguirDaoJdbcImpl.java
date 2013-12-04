@@ -7,9 +7,11 @@ import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 
+import ar.edu.unlam.talleweb.timelineme.model.Agente;
 import ar.edu.unlam.talleweb.timelineme.model.Empresa;
 import ar.edu.unlam.talleweb.timelineme.model.Publicacion;
 import ar.edu.unlam.talleweb.timelineme.model.Seguir;
+import ar.edu.unlam.talleweb.timelineme.services.AgenteService;
 
 public class SeguirDaoJdbcImpl implements SeguirDao{
 	
@@ -21,7 +23,7 @@ public class SeguirDaoJdbcImpl implements SeguirDao{
 	
 	
 	@Override
-	public void insert(Seguir seguir) throws PersistenceException {
+	public Boolean insert(Seguir seguir) throws PersistenceException {
 
 		Transaction tx = TransactionJdbcImpl.getInstance();
 		Connection conn = tx.getConnection();
@@ -51,11 +53,13 @@ public class SeguirDaoJdbcImpl implements SeguirDao{
 				throw new PersistenceException(sqlException);
 			}
 		}
+		
+		return true;
 	}
 	
 	
 	@Override
-	public void delete(Seguir seguir) throws PersistenceException {
+	public Boolean delete(Integer idAgente, Integer idEmpresa) throws PersistenceException {
 
 		Transaction tx = TransactionJdbcImpl.getInstance();
 		Connection conn = tx.getConnection();
@@ -66,8 +70,8 @@ public class SeguirDaoJdbcImpl implements SeguirDao{
 			PreparedStatement statement = TransactionJdbcImpl.getInstance()
 					.getConnection().prepareStatement(query);
 			
-			statement.setInt(1, seguir.getIdseguidor());
-			statement.setInt(2, seguir.getIdempresaseguida());
+			statement.setInt(1, idAgente);
+			statement.setInt(2, idEmpresa);
 			
 
 			statement.executeUpdate();
@@ -83,6 +87,8 @@ public class SeguirDaoJdbcImpl implements SeguirDao{
 				throw new PersistenceException(sqlException);
 			}
 		}
+		
+		return true;
 	}
 	
 	@Override
@@ -120,11 +126,17 @@ public class SeguirDaoJdbcImpl implements SeguirDao{
 	public List<Seguir> findFollow(Integer idAgente) throws PersistenceException {
 		List<Seguir> lista = new LinkedList<Seguir>();
 		try {
-			String query = "select * from seguir where fkSeguidor = ? group by fkSeguido";
+			String query = "select * from seguir s join empresa e on s.fkSeguido= e.iId where s.fkSeguido != ? and e.iId in (select fkSeguido from seguir where fkSeguidor = ? group by fkSeguido) group by fkSeguido";
 			Connection cn = ConnectionProvider.getInstance().getConnection();
 			
 			PreparedStatement statement = cn.prepareStatement(query);
-			statement.setInt(1, idAgente);
+			
+			//Obtengo el idEmpresa
+			AgenteService agenteServicio = new AgenteService();
+			Agente agente =  agenteServicio.findById(idAgente);
+			
+			statement.setInt(1, agente.idempresa);
+			statement.setInt(2, idAgente);
 			
 			ResultSet resultSet = statement.executeQuery();
 			
@@ -140,12 +152,12 @@ public class SeguirDaoJdbcImpl implements SeguirDao{
 	public List<Seguir> findNoFollow(Integer idAgente,Integer idEmpresa) throws PersistenceException {
 		List<Seguir> lista = new LinkedList<Seguir>();
 		try {
-			String query = "select * from seguir where fkSeguidor != ? and fkSeguido!=? group by fkSeguido";
+			String query = "select * from seguir s join empresa e on s.fkSeguido= e.iId where s.fkSeguido != ? and e.iId not in (select fkSeguido from seguir where fkSeguidor = ? group by fkSeguido)";
 			Connection cn = ConnectionProvider.getInstance().getConnection();
 			
 			PreparedStatement statement = cn.prepareStatement(query);
-			statement.setInt(1, idAgente);
-			statement.setInt(2, idEmpresa);
+			statement.setInt(1, idEmpresa);
+			statement.setInt(2, idAgente);
 			
 			ResultSet resultSet = statement.executeQuery();
 			
@@ -178,6 +190,8 @@ public class SeguirDaoJdbcImpl implements SeguirDao{
 		}
 		return encuentra;
 	}
+	
+	
 
 	
 }
