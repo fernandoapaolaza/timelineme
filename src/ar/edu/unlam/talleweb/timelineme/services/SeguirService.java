@@ -2,6 +2,7 @@ package ar.edu.unlam.talleweb.timelineme.services;
 
 import java.util.List;
 
+import ar.edu.unlam.talleweb.timelineme.model.Publicacion;
 import ar.edu.unlam.talleweb.timelineme.model.Seguir;
 import ar.edu.unlam.talleweb.timelineme.persistence.DaoFactory;
 import ar.edu.unlam.talleweb.timelineme.persistence.PersistenceException;
@@ -18,4 +19,15 @@ public class SeguirService {
 		SeguirDao miSeguirDao = DaoFactory.getSeguirDao();
 		return miSeguirDao.findNoFollow(idagente,idempresa);
 	}
+	
+	public Boolean insert(Seguir seguir) throws PersistenceException{
+		SeguirDao miSeguirDao = DaoFactory.getSeguirDao();
+		return miSeguirDao.insert(seguir);
+	}
+	
+	public Boolean delete(int idagente, int idempresa) throws PersistenceException{
+		SeguirDao miSeguirDao = DaoFactory.getSeguirDao();
+		return miSeguirDao.delete(idagente,idempresa);
+	}
+	
 }

@@ -104,6 +104,9 @@ public class EmpresasController{
 		//Despacho la variable con el nombre de la empresa.
 		dispatch.addObject("empresasQueSigo", resultadosSeguidas);
 		
+		//Empresas que no sigo
+		List<Seguir> resultadosNoSeguidas = sigue.findNoFollow(agenteObj.id,agenteObj.idempresa);
+		dispatch.addObject("empresasQueNoSigo", resultadosNoSeguidas);
 		return dispatch;
 		
 		
