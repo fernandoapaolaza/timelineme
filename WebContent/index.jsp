@@ -16,7 +16,7 @@
 		</div>
 		<div id="encabezado">
 			<img alt="logotipo" src="http://localhost:8080/timelineme/imagenes/Logo.png" type="text-align: center;">
-			<!-- <h1>TIMELINE-ME</h1>-->
+			
 		</div>
 		<div id="cuerpo">
 			<fieldset>
