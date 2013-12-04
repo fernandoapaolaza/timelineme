@@ -5,14 +5,21 @@
 <html>
 <head>
 <title>Login</title>
+<link href="css/index.css" type="text/css" rel="stylesheet">
 </head>
 <body>
 <%-- 	<jsp:useBean id="userLogin" scope="request" --%>
 <%-- 		class="ar.edu.unlam.talleweb.timelineme.beans.UserBean" /> --%>
-
+	<div id="contenedor">
 	<div class="alert">
 		${message}
 	</div>
+	<div id="encabezado">
+		<h1>TIMELINE-ME</h1>
+	</div>
+	<div id="cuerpo">
+	<fieldset>
+	<legend>Acceso</legend>
 	<form action="login/auth.do" class="form-horizontal" method='POST'>
 		<div class="control-group">
 			<label class="control-label" for="inputUsername">Nombre de usuario</label>
@@ -37,5 +44,8 @@
 			</div>
 		</div>
 	</form>
+	</fieldset>
+	</div>
+	</div>
 </body>
 </html>

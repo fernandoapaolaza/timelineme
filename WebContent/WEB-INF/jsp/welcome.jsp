@@ -5,74 +5,22 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<style>
-	body{
-		margin:0px auto;padding:0px;width:100%;
-	}
-	
-	div.contenedorPrincipal{
-		width:700px;margin:0px auto;margin-top:20px;
-	}
-	
-	h2{
-		padding:0px;
-		margin:0px;
-		color:#000;
-		font-size:20px;
-	}
-	
-	h3{
-		padding:0px;
-		margin:0px;
-		color:#000;
-		font-size:15px;
-		margin-bottom:15px;
-	}
-	
-	h4{
-		padding:0px;
-		margin:0px;
-		color:#000;
-		font-size:13px;
-	}
-	
-	p {
-		padding: 0px;
-		font-size: 12px;
-		line-height: 12px;
-		margin: 0px;
-	}
-	
-	.rojo{
-		color:red;
-	}
-	.left{
-		float:left;
-	}
-	
-	.both{
-		clear:both;
-	}
-	
-	.cien{
-		width:100%;
-	}
-	
-	textarea{
-		width:500px;
-		height:150px;
-		
-	}
-	
-	label{
-		font-size:12px;
-	}
-</style>
+
+
 <title>Bienvenido ${username}</title>
+<link href="http://localhost:8080/timelineme/css/estilos.css" type="text/css" rel="stylesheet">
+
 </head>
 <body>
-	<div class="contenedorPrincipal">
+	<div id="contenedor">
+	<div id="encabezado">
+		<h1>TIMELINE-ME</h1>
 		<h2 class="left both cien">Bienvenido ${username}</h2>
+	</div>
+	<div id="cuerpo">
+		
+		<div id="cuerpoizq">
+		
 		
 		<a href="http://localhost:8080/timelineme/empresas/timeline.do">
 			Time Line - Empresas que sigo.
@@ -107,6 +55,7 @@
 			</ul>
 		</div>
 		
+		<div id="cuerpoder">
 		<h3 class="left both cien">Este es el Timeline de tu Empresa ${empresa}</h3>
 		
 		<c:forEach items="${message}" var="unComentario">
@@ -153,6 +102,8 @@
 	<!-- 
 	<a href="../perfil/inicio.do">Probar la sesión</a>
 	 -->
-	
+	 </div>
+	 </div>
+	</div>
 </body>
 </html>

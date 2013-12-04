@@ -1,0 +1,59 @@
+body{
+  background-image:url('../fondo.jpg');
+}
+
+
+#contenedor{ width: 1000px;
+            
+            margin: 0 auto;
+            }
+#encabezado{  border-radius:5px 5px 0px 0px;
+            text-align:right;  
+            height: 120px;
+            width: 1000px;
+            background-color: #0B173B;
+            }
+#menu{  border-radius:0px 0px 5px 5px;
+  background-color: #0B173B;
+        float:left;
+        text-align:center; 
+        height: 40px;
+        width: 1000px;
+                    }
+#cuerpo {height: 800px;
+            width: 1000px;
+            
+
+}
+
+
+#cuerpoizq{border-radius:15px;
+  height: 750px;
+            width: 1000px;
+            background-color: #7D3C3C;
+        float:left;
+}
+
+#cuerpoder{border-radius:15px;
+  height: 500px;
+            width: 250px;
+            background-color: #307088;
+             margin-right: 15px;
+        float:right;
+}
+
+h2{
+    text-align:center;   
+}
+
+fieldset{         /*borde de "envianos tu comentario", como efecto recuadro*/
+      border: .1em solid #20B5EB;
+      border-radius: .5em;
+      padding: 1em;
+}
+
+legend{           /* tecto en le marco */
+      color: #09394B;
+      font-size: 1.2em;
+      font-weight: bold;
+}

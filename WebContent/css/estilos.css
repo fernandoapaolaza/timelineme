@@ -1,0 +1,61 @@
+body{
+  background-image:url('../img/fondo.jpg');
+}
+
+
+#contenedor{ width: 1000px;
+            
+            margin: 0 auto;
+            }
+
+
+#cuerpo {height: 800px;
+            width: 1000px;
+            
+
+}
+#encabezado{  border-radius:5px 5px 0px 0px;
+            text-align:right;  
+            height: 150px;
+            width: 1000px;
+            background-color: #083760;
+           
+            }
+
+
+h1{ color: #ffffff;
+	font-size:80px;
+    text-align:center;   
+}
+
+fieldset{         /*borde de "envianos tu comentario", como efecto recuadro*/
+      border: .1em solid #20B5EB;
+      border-radius:5px;
+      padding: 1em;
+      height: 780px;
+      background-color: #E1E4E6;
+}
+
+#cuerpo fieldset{padding: 5px;}
+
+legend{           /* tecto en le marco */
+      color: #000;
+      font-size: 1.2em;
+      font-weight: bold;
+}
+
+#cuerpoizq{border-radius:15px;
+  height: 750px;
+            width: 1000px;
+            background-color: #7D3C3C;
+        float:left;
+}
+
+#cuerpoder{border-radius:15px;
+  height: 500px;
+            width: 250px;
+            background-color: #307088;
+             margin-right: 15px;
+        float:right;
+}
+
