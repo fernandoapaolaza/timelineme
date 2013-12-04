@@ -43,3 +43,19 @@ legend{           /* tecto en le marco */
       font-size: 1.2em;
       font-weight: bold;
 }
+
+#cuerpoizq{border-radius:15px;
+  height: 750px;
+            width: 1000px;
+            background-color: #7D3C3C;
+        float:left;
+}
+
+#cuerpoder{border-radius:15px;
+  height: 500px;
+            width: 250px;
+            background-color: #307088;
+             margin-right: 15px;
+        float:right;
+}
+

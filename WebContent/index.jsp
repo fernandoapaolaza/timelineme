@@ -15,7 +15,7 @@
 		${message}
 	</div>
 	<div id="encabezado">
-		<h2>TIMELINE-ME</h2>
+		<h1>TIMELINE-ME</h1>
 	</div>
 	<div id="cuerpo">
 	<fieldset>
