@@ -17,7 +17,7 @@
 		<img alt="logotipo" src="http://localhost:8080/timelineme/imagenes/Logo.png" >
 	</div>
 	<div id="cuerpo">
-		<h2 class="left both cien" style="text-align:center;">Bienvenido ${username}</h2>
+		<h2 style="text-align:center;">Bienvenido ${username}</h2>
 		<div id="cuerpoizq">
 			
 			<a href="http://localhost:8080/timelineme/empresas/timeline.do">
@@ -25,9 +25,9 @@
 			</a>
 			
 			
-			<h3 class="left both cien">Estas son las empresas que sigo</h3>
+			<h3 >Estas son las empresas que sigo</h3>
 			<div class="contenedorempresa">
-			<div class="empresasALasQueSigo left both">
+			
 				<ul>
 					<c:forEach items="${empresasQueSigo}" var="unaEmpresa">
 			  			<li> 
@@ -38,14 +38,13 @@
 					</c:forEach>
 				</ul>
 			</div>
-		</div>
 		<br />
 		<br />
 		
 		
-		<h3 class="left both cien">Estas son las empresas que NO sigo</h3>
+		<h3 >Estas son las empresas que NO sigo</h3>
 		<div class="contenedorempresa">
-			<div class="empresasALasQueSigo left both">
+			
 				<ul>
 					<c:forEach items="${empresasQueNoSigo}" var="unaEmpresaNoseguida">
 			  			<li> 
@@ -55,11 +54,12 @@
 						</li>
 					</c:forEach>
 				</ul>
-			</div>
+			
 		
 		</div>
+		</div>
 		<div id="cuerpoder">
-			<h3 class="left both cien">Este es el Timeline de tu Empresa ${empresa}</h3>
+			<h3>Este es el Timeline de tu Empresa ${empresa}</h3>
 			<div class="contenedorempresa1">
 			<c:forEach items="${message}" var="unComentario">
 	  			<br/> 
@@ -104,7 +104,7 @@
 	<a href="../perfil/inicio.do">Probar la sesión</a>
 	 -->
 	 </div>
-	</div>
+
 	</div>
 </body>
 </html>
