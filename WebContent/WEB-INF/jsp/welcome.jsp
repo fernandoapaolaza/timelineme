@@ -14,32 +14,30 @@
 <body>
 	<div id="contenedor">
 	<div id="encabezado">
-		<h1>TIMELINE-ME</h1>
-		
+		<img alt="logotipo" src="http://localhost:8080/timelineme/imagenes/Logo.png" >
 	</div>
 	<div id="cuerpo">
 		<h2 class="left both cien" style="text-align:center;">Bienvenido ${username}</h2>
 		<div id="cuerpoizq">
-		
-		
-		<a href="http://localhost:8080/timelineme/empresas/timeline.do">
-			Time Line - Empresas que sigo.
-		</a>
-		
-		
-		<h3 class="left both cien">Estas son las empresas que sigo</h3>
-		<div class="contenedorempresa">
-		<div class="empresasALasQueSigo left both">
-			<ul>
-				<c:forEach items="${empresasQueSigo}" var="unaEmpresa">
-		  			<li> 
-		  				${unaEmpresa.empresa.nombre}
-		  				<a href="http://localhost:8080/timelineme/seguir/timelineme_dejardeseguir.do?username=${username}&idempresa=${unaEmpresa.empresa.id}">¡Dejar de Seguir!</a>
-					</li>
-					
-				</c:forEach>
-			</ul>
-		</div>
+			
+			<a href="http://localhost:8080/timelineme/empresas/timeline.do">
+				Time Line - Empresas que sigo.
+			</a>
+			
+			
+			<h3 class="left both cien">Estas son las empresas que sigo</h3>
+			<div class="contenedorempresa">
+			<div class="empresasALasQueSigo left both">
+				<ul>
+					<c:forEach items="${empresasQueSigo}" var="unaEmpresa">
+			  			<li> 
+			  				${unaEmpresa.empresa.nombre}
+			  				<a href="http://localhost:8080/timelineme/seguir/timelineme_dejardeseguir.do?username=${username}&idempresa=${unaEmpresa.empresa.id}">¡Dejar de Seguir!</a>
+						</li>
+						
+					</c:forEach>
+				</ul>
+			</div>
 		</div>
 		<br />
 		<br />
@@ -47,65 +45,66 @@
 		
 		<h3 class="left both cien">Estas son las empresas que NO sigo</h3>
 		<div class="contenedorempresa">
-		<div class="empresasALasQueSigo left both">
-			<ul>
-				<c:forEach items="${empresasQueNoSigo}" var="unaEmpresaNoseguida">
-		  			<li> 
-		  				${unaEmpresaNoseguida.empresa.nombre}
-		  				
-		  				<a href="http://localhost:8080/timelineme/seguir/timelineme_seguir.do?username=${username}&idempresa=${unaEmpresaNoseguida.empresa.id}">¡Seguir!</a>
-					</li>
-				</c:forEach>
-			</ul>
-		</div>
-		</div>
+			<div class="empresasALasQueSigo left both">
+				<ul>
+					<c:forEach items="${empresasQueNoSigo}" var="unaEmpresaNoseguida">
+			  			<li> 
+			  				${unaEmpresaNoseguida.empresa.nombre}
+			  				
+			  				<a href="http://localhost:8080/timelineme/seguir/timelineme_seguir.do?username=${username}&idempresa=${unaEmpresaNoseguida.empresa.id}">¡Seguir!</a>
+						</li>
+					</c:forEach>
+				</ul>
+			</div>
+		
 		</div>
 		<div id="cuerpoder">
-		<h3 class="left both cien">Este es el Timeline de tu Empresa ${empresa}</h3>
-		<div class="contenedorempresa">
-		<c:forEach items="${message}" var="unComentario">
-  			<br/> 
-  			<p class='left both cien'>
-  				${unComentario.agente.nombre} a las <b>(${unComentario.fecha})</b> dijo:
-  				<br>
-				<b>${unComentario.comentario}</b>
+			<h3 class="left both cien">Este es el Timeline de tu Empresa ${empresa}</h3>
+			<div class="contenedorempresa1">
+			<c:forEach items="${message}" var="unComentario">
+	  			<br/> 
+	  			<p class='left both cien'>
+	  				${unComentario.agente.nombre} a las <b>(${unComentario.fecha})</b> dijo:
+	  				<br>
+					<b>${unComentario.comentario}</b>
+				</p>
+			</c:forEach>
+			</div>
+			
+			<br />
+			
+			<h4 >Escribe un comentario</h4>
+			
+			<p>
+				<i>
+					<span class="rojo">
+						<b>${nombre}</b>
+					</span> dice:
+				</i>
 			</p>
-		</c:forEach>
-		</div>
-		
-		<br />
-		
-		<h4 >Escribe un comentario</h4>
-		
-		<p>
-			<i>
-				<span class="rojo">
-					<b>${nombre}</b>
-				</span> dice:
-			</i>
-		</p>
-		
-		<form action="http://localhost:8080/timelineme/comments/comment.do" class="form-horizontal" method='POST'>
-			<div class="control-group  left both  cien">
-				<label class="control-label  cien left both" for="inputComentario">Comentario</label>
-				<div class="controls  left both  cien">
-					<input type="hidden" name="username" id="username" value="${username}">
-					
-					<textarea type="text" class=" left both" name="comments" id="comments" placeholder="Escriba su comentario"></textarea>
-					
+			
+			<form action="http://localhost:8080/timelineme/comments/comment.do" class="form-horizontal" method='POST'>
+				<div class="control-group  left both  cien">
+					<label class="control-label  cien left both" for="inputComentario">Comentario</label>
+					<div class="controls  left both  cien">
+						<input type="hidden" name="username" id="username" value="${username}">
+						
+						<textarea type="text" class=" left both" cols="40" rows="5" name="comments" id="comments" placeholder="Escriba su comentario"></textarea>
+						
+					</div>
 				</div>
-			</div>
-			<div class="control-group  left both">
-				<div class="controls  left both">
-					<button type="submit" class="btn  left both">Ingresar</button>
+				<div class="control-group  left both">
+					<div class="controls  left both">
+						<button type="submit" class="btn  left both">Ingresar</button>
+					</div>
 				</div>
-			</div>
-		</form>
+			</form>
 	</div>
 	<!-- 
 	<a href="../perfil/inicio.do">Probar la sesión</a>
 	 -->
 	 </div>
+	</div>
 	</div>
 </body>
 </html>
