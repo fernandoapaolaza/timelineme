@@ -25,14 +25,14 @@ public class AgenteDaoJdbcImpl implements AgenteDao{
 
 		try {
 			tx.begin();
-			String query = "insert into agente (iId, cNombre, cEmail, cPassword, fkEmpresa, iActivo, iAdmin) values (?, ?, ?, ?, ?, 1, 0)";
+			String query = "insert into agente (iId, cNombre, cEmail, cPassword, fkEmpresa, iActivo, iAdmin) values (0, ?, ?, ?, ?, 1, 0)";
 			PreparedStatement statement = TransactionJdbcImpl.getInstance()
 					.getConnection().prepareStatement(query);
-			statement.setInt(1, agente.getId());
-			statement.setString(2, agente.getNombre());
-			statement.setString(3, agente.getUsername());
-			statement.setString(4, agente.getPassword());
-			statement.setInt(5, agente.getIdempresa());
+			//statement.setInt(1, agente.getId());
+			statement.setString(1, agente.getNombre());
+			statement.setString(2, agente.getUsername());
+			statement.setString(3, agente.getPassword());
+			statement.setInt(4, agente.getIdempresa());
 			
 
 			statement.executeUpdate();
