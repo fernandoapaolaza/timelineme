@@ -152,7 +152,7 @@ public class SeguirDaoJdbcImpl implements SeguirDao{
 	public List<Seguir> findNoFollow(Integer idAgente,Integer idEmpresa) throws PersistenceException {
 		List<Seguir> lista = new LinkedList<Seguir>();
 		try {
-			String query = "select * from seguir s join empresa e on s.fkSeguido= e.iId where s.fkSeguido != ? and e.iId not in (select fkSeguido from seguir where fkSeguidor = ? group by fkSeguido)";
+			String query = "select * from seguir s join empresa e on s.fkSeguido= e.iId where s.fkSeguido != ? and e.iId not in (select fkSeguido from seguir where fkSeguidor = ? group by fkSeguido)group by fkSeguido";
 			Connection cn = ConnectionProvider.getInstance().getConnection();
 			
 			PreparedStatement statement = cn.prepareStatement(query);
