@@ -80,6 +80,9 @@ public class LoginController {
 			//Despacho la variable con el nombre de la empresa.
 			dispatch.addObject("empresa", ObjEmpresa.nombre);
 			
+			//Despacho la variable con el nombre del agente.
+			dispatch.addObject("nombre", AtributosAgente.nombre);
+			
 			//Empresas que sigo
 			SeguirService sigue = new SeguirService();
 			List<Seguir> resultadosSeguidas = sigue.findFollow(AtributosAgente.id);
