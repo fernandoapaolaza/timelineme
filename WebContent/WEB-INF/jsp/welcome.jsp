@@ -14,8 +14,7 @@
 <body>
 	<div id="contenedor">
 	<div id="encabezado">
-		<h1>TIMELINE-ME</h1>
-		
+		<img alt="logotipo" src="http://localhost:8080/timelineme/imagenes/Logo.png" >
 	</div>
 	<div id="cuerpo">
 		<h2 class="left both cien" style="text-align:center;">Bienvenido ${username}</h2>
@@ -62,7 +61,7 @@
 		</div>
 		<div id="cuerpoder">
 		<h3 class="left both cien">Este es el Timeline de tu Empresa ${empresa}</h3>
-		<div class="contenedorempresa">
+		<div class="contenedorempresa1">
 		<c:forEach items="${message}" var="unComentario">
   			<br/> 
   			<p class='left both cien'>
@@ -91,7 +90,7 @@
 				<div class="controls  left both  cien">
 					<input type="hidden" name="username" id="username" value="${username}">
 					
-					<textarea type="text" class=" left both" name="comments" id="comments" placeholder="Escriba su comentario"></textarea>
+					<textarea type="text" class=" left both" cols="40" rows="5" name="comments" id="comments" placeholder="Escriba su comentario"></textarea>
 					
 				</div>
 			</div>

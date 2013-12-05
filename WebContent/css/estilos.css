@@ -1,40 +1,33 @@
-body{
-  background-image:url('../img/fondo.jpg');
-}
-
-
-#contenedor{ 	width: 1000px;
-            	margin: 0 auto;
+#contenedor{ width: 1000px;
+             margin: 0 auto;
             }
 
 
-#cuerpo {height: 800px;
-            width: 1000px;
-            
 
-}
-#encabezado{  border-radius:5px 5px 0px 0px;
-            text-align:right;  
+#encabezado{border-radius:5px 5px 0px 0px;
+            text-aling: center;
             height: 150px;
-            width: 1000px;
+            width: 100%;
             background-color: #083760;
-           
+            text-align: center;
             }
-
-
-h1{ color: #ffffff;
-	font-size:80px;
-    text-align:center;   
-}
-
-
+           
+ 
+            
+ #cuerpo {height: 800px;
+         width: 100%;
+         border: 1px;
+         background-color: #E1E4E6 ; 
+         padding-top: 10px; 
+         
+	   }
 
 
 
 #cuerpoizq{	border-radius:15px;
   			height: 750px;
-            width: 480px;
-            background-color: #7D3C3C;
+            width: 460px;
+            background-color: #6387E2;
        	 	float:left;
        	 	margin-left:20px;
        	 	text-align:center;
@@ -44,9 +37,10 @@ h1{ color: #ffffff;
 
 #cuerpoder{ border-radius:15px;
   			height: 750px;
-            width: 480px;
-            background-color: #7D3C3C;
+            width: 460px;
+            background-color: #6387E2;
             float:left;
+            margin-left: 10px;
             padding-left: 15px;
             padding-right: auto;
             padding:5em auto;
@@ -58,4 +52,13 @@ h1{ color: #ffffff;
                    overflow: scroll;
                    margin: auto;
                   }
+                  
+ .contenedorempresa1{width: 400px;
+                   height: 430px;
+                   background-color:#ffffff;
+                   overflow: scroll;
+                   margin: auto;
+                   padding: 3px;
+                  }
+
 

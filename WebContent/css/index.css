@@ -1,45 +1,41 @@
-body{
-  background-image:url('../img/fondo.jpg');
-}
-
-
 #contenedor{ width: 1000px;
              margin: 0 auto;
             }
 
 
-#cuerpo {height: 800px;
-         width: 1000px;
-         border: 1px;
-         background-color: #E1E4E6 ;  
-         padding: 20px; 
 
-	   }
-#encabezado{  border-radius:5px 5px 0px 0px;
-            text-align:right;  
+#encabezado{border-radius:5px 5px 0px 0px;
+            text-aling: center;
             height: 150px;
-            width: 1000px;
+            width: 100%;
             background-color: #083760;
-           
+            text-align: center;
             }
+           
+ 
+            
+ #cuerpo {height: 800px;
+         width: 100%;
+         border: 1px;
+         background-color: #E1E4E6 ; 
+         padding-top: 10px; 
+         
+	   }
 
 
-img{text-aling: center;}
-
-#cuerpo fieldset{         /*borde de "envianos tu comentario", como efecto recuadro*/
+fieldset{         /*borde de "envianos tu comentario", como efecto recuadro*/
       border: .1em solid #20B5EB;
       border-radius:5px;
       padding: 1em;
-      margin: 10 px;
+      margin-left: 25px;
       width: 200px;
       text-aling: center;
-      /*height: 780px;*/
       background-color: #ffffff;
 }
 
 
 
-legend{           /* tecto en le marco */
+legend{           /* texto en le marco */
       color: #000;
       font-size: 1.2em;
       font-weight: bold;
